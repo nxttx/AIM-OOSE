@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: aim.oose.dea.StringCalculatorTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.038 s <<< FAILURE! - in aim.oose.dea.StringCalculatorTest
+addHappyFlowTest  Time elapsed: 0.007 s  <<< ERROR!
+java.lang.NumberFormatException: For input string: ";"
+	at aim.oose.dea.StringCalculatorTest.addHappyFlowTest(StringCalculatorTest.java:36)
+
