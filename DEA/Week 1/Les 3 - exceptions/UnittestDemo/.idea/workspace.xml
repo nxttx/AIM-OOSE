@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9ce8151b-66f5-4de5-8b88-060ee3c22884" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/src/main/java/aim/oose/dea/Calculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/UnittestDemo/src/test/java/aim/oose/dea/CalculatorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Les 2/Workshop/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/src/main/java/aim/oose/dea/StringCalculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/src/test/java/aim/oose/dea/StringCalculatorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/target/surefire-reports/TEST-aim.oose.dea.StringCalculatorTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Les 2/Workshop/target/surefire-reports/aim.oose.dea.StringCalculatorTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../OOAD/Week 1/les 1/Opdracht_1.3.1/Use Case template.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../OOAD/Week 1/les 1/Opdracht_1.3.1/Use Case template.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../OOAD/Week 1/les 1/Opdracht_1.3.2/Betalen.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../OOAD/Week 1/les 1/Opdracht_1.3.2/Parkeert.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../OOAD/Week 1/les 1/Opdracht_1.3.2/Ticket_aanvragen.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../OOAD/Week 1/les 1/Opdracht_1.3.2/UsecaseDiagram.asta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../OOAD/Week 1/les 1/Opdracht_1.3.2/UsecaseDiagram.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../OOAD/Week 1/les 1/Opdracht_1.3.2/Wegrijden.docx" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="ADD_SUFFIX_TO_CHERRY_PICKS_OF_PUBLISHED_COMMITS" value="false" />
+    <option name="PREVIEW_PUSH_ON_COMMIT_AND_PUSH" value="false" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+    <option name="WARN_ABOUT_CRLF" value="false" />
+    <option name="WARN_ABOUT_DETACHED_HEAD" value="false" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\apache-maven-3.6.3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1nxo0SrMhbJR5ypddWjPYphrYol" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RunManager" selected="JUnit.CalculatorTest">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="UnittestDemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="aim.oose.dea.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="aim.oose.dea" />
+      <option name="MAIN_CLASS_NAME" value="aim.oose.dea.CalculatorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculatorTest.divideTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="UnittestDemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="aim.oose.dea.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="aim.oose.dea" />
+      <option name="MAIN_CLASS_NAME" value="aim.oose.dea.CalculatorTest" />
+      <option name="METHOD_NAME" value="divideTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculatorTest.multiplyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="UnittestDemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="aim.oose.dea.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="aim.oose.dea" />
+      <option name="MAIN_CLASS_NAME" value="aim.oose.dea.CalculatorTest" />
+      <option name="METHOD_NAME" value="multiplyTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="UnittestDemo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="HAN.OOSE.DEA.App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CalculatorTest" />
+        <item itemvalue="JUnit.CalculatorTest.divideTest" />
+        <item itemvalue="JUnit.CalculatorTest.multiplyTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9ce8151b-66f5-4de5-8b88-060ee3c22884" name="Default Changelist" comment="" />
+      <created>1612340880646</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612340880646</updated>
+      <workItem from="1612340882816" duration="5312000" />
+      <workItem from="1612428608638" duration="800000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="SHOW_UNVERSIONED_FILES_WHILE_COMMIT" value="false" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/UnittestDemo$CalculatorTest.ic" NAME="CalculatorTest Coverage Results" MODIFIED="1612345718217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>aim.oose.dea.*</FILTER>
+    </SUITE>
+  </component>
+</project>
