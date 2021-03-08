@@ -31,13 +31,12 @@ public class PlaylistsDAO implements IPlaylistsDAO {
 
             Playlists playlists = new Playlists();
             ArrayList <Playlist> PlaylistsList= new ArrayList<Playlist>();
+
+            int length = 0;
             while (resultSet.next()){
 
-
                 ArrayList<Track> trackList = new ArrayList<Track>();
-
-
-                String sql2 = "SELECT track.Title, track.Performer, track.OfflineAvailable, track.Duration," +
+                String sql2 = "SELECT track.id, track.Title, track.Performer, track.OfflineAvailable, track.Duration," +
                         " track.Album, track.PublicationDate, track.Description, track.playcount " +
                         "FROM track_in_playlist JOIN track ON `Track_id` = track.id WHERE Playlist_id = ?";
                 try {
@@ -46,20 +45,32 @@ public class PlaylistsDAO implements IPlaylistsDAO {
                     statement2.setInt(1, resultSet.getInt("id"));
                     ResultSet resultSet2= statement2.executeQuery();
 
-
                     while (resultSet2.next()){
                         Track track = new Track();
+                        track.setId(resultSet2.getInt("id"));
+                        track.setTitle(resultSet2.getString("title"));
+                        track.setPerformer(resultSet2.getString("performer"));
+                        track.setDuration(resultSet2.getInt("Duration"));
+                        track.setAlbum(resultSet2.getString("album"));
+                        track.setPlaycount(resultSet2.getInt("playcount"));
+                        track.setPublicationDate(resultSet2.getString("publicationdate"));
+                        track.setDescription(resultSet2.getString("Description"));
+                        track.setOfflineAvailable(resultSet2.getBoolean("OfflineAvailable"));
                         trackList.add(track);
 
+                        length+=resultSet2.getInt("Duration");
                     }
+
                     Playlist playlist = new Playlist(resultSet.getInt("id"),resultSet.getString("Naam"),resultSet.getInt("Eigenaar"), trackList);
                     PlaylistsList.add(playlist);
                 } catch (SQLException exception) {
                     exception.printStackTrace();
                 }
-
             }
+
+
             playlists.setPlaylists(PlaylistsList);
+            playlists.setLength(length);
             return playlists;
 
         } catch (SQLException exception) {

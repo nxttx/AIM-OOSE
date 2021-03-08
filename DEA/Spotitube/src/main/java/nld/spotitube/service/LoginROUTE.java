@@ -1,13 +1,10 @@
 package nld.spotitube.service;
 
-import nld.spotitube.service.dto.PlaylistDTO;
-import nld.spotitube.service.dto.PlaylistsDTO;
 import nld.spotitube.service.dto.TokenDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 
 @Path("login")
 public class LoginROUTE {

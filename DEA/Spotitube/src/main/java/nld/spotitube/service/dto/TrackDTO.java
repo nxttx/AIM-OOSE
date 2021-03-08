@@ -9,7 +9,7 @@ public class TrackDTO {
     public int duration;
     public String album;
     public int playcount;
-    public Date publicationDate;
+    public String publicationDate;
     public String description;
     public Boolean offlineAvailable;
 }
