@@ -9,6 +9,7 @@ import nld.spotitube.domain.Track;
 import nld.spotitube.service.dto.PlaylistDTO;
 import nld.spotitube.service.dto.PlaylistsDTO;
 import nld.spotitube.service.dto.TrackDTO;
+import nld.spotitube.service.dto.TracksDTO;
 
 
 import javax.inject.Inject;
@@ -92,9 +93,27 @@ public class PlaylistsROUTE {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPlaylistTracks(@PathParam("id") int id) {
         ArrayList<Track> tracks = TrackDAO.getTracksFromPlaylist(id);
-        //build tracks to tracks dto
 
-        return Response.status(200).entity(tracks).build();
+        ArrayList<TrackDTO> trackList = new ArrayList<TrackDTO>();
+        tracks.forEach(track ->{
+            var newTrack = new TrackDTO();
+            newTrack.album = track.getAlbum();
+            newTrack.id = track.getId();
+            newTrack.description = track.getDescription();
+            newTrack.duration = track.getDuration();
+            newTrack.playcount = track.getPlaycount();
+            newTrack.offlineAvailable = track.getOfflineAvailable();
+            newTrack.performer = track.getPerformer();
+            newTrack.publicationDate = track.getPublicationDate();
+            newTrack.title = track.getTitle();
+
+            trackList.add(newTrack);
+        });
+
+        TracksDTO tracksDTO = new TracksDTO();
+        tracksDTO.tracks =trackList;
+
+        return Response.status(200).entity(tracksDTO).build();
     }
 
 
