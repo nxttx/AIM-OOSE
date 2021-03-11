@@ -19,14 +19,13 @@ public class TrackDAO implements ITrackDAO {
     public ArrayList<Track> getAllTracks() {
         String sql = "select * from track";
 
-        try {
-            Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection())  {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
-            ArrayList<Track> tracks =  new ArrayList<>();
+            ArrayList<Track> tracks = new ArrayList<>();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Track track = new Track();
                 track.setId(resultSet.getInt("id"));
                 track.setTitle(resultSet.getString("title"));
@@ -39,7 +38,7 @@ public class TrackDAO implements ITrackDAO {
                 track.setOfflineAvailable(resultSet.getBoolean("OfflineAvailable"));
                 tracks.add(track);
             }
-        return tracks;
+            return tracks;
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -49,16 +48,15 @@ public class TrackDAO implements ITrackDAO {
     }
 
     @Override
-    public Track getTrack(int id){
+    public Track getTrack(int id) {
         String sql = "select * from track where id = ?";
 
-        try {
-            Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,id);
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Track track = new Track();
                 track.setId(resultSet.getInt("id"));
                 track.setTitle(resultSet.getString("title"));
@@ -71,7 +69,6 @@ public class TrackDAO implements ITrackDAO {
                 track.setOfflineAvailable(resultSet.getBoolean("OfflineAvailable"));
                 return track;
             }
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -81,18 +78,18 @@ public class TrackDAO implements ITrackDAO {
     }
 
     @Override
-    public ArrayList<Track> getTracksFromPlaylist(int id ){
+    public ArrayList<Track> getTracksFromPlaylist(int id) {
         String sql = "select t.id, Performer, Title, OfflineAvailable, Duration, Album, PublicationDate, Description, " +
                 "playcount from track t join track_in_playlist i on t.id = i.Track_id where i.Playlist_id = ?";
 
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,id);
-            ResultSet resultSet = statement.executeQuery();
-            ArrayList<Track> tracks =  new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()){
 
-            while (resultSet.next()){
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            ArrayList<Track> tracks = new ArrayList<>();
+
+            while (resultSet.next()) {
                 Track track = new Track();
                 track.setId(resultSet.getInt("id"));
                 track.setTitle(resultSet.getString("title"));

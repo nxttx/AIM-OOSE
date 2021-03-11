@@ -24,8 +24,8 @@ public class PlaylistsDAO implements IPlaylistsDAO {
     public Playlists getPlaylists(){
         String sql = "select * from Playlist";
 
-        try {
-            Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
+
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -39,8 +39,8 @@ public class PlaylistsDAO implements IPlaylistsDAO {
                 String sql2 = "SELECT track.id, track.Title, track.Performer, track.OfflineAvailable, track.Duration," +
                         " track.Album, track.PublicationDate, track.Description, track.playcount " +
                         "FROM track_in_playlist JOIN track ON `Track_id` = track.id WHERE Playlist_id = ?";
-                try {
-                    Connection connection2 = dataSource.getConnection();
+                try(Connection connection2 = dataSource.getConnection()) {
+
                     PreparedStatement statement2 = connection2.prepareStatement(sql2);
                     statement2.setInt(1, resultSet.getInt("id"));
                     ResultSet resultSet2= statement2.executeQuery();

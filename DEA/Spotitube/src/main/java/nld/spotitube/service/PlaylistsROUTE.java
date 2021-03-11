@@ -25,6 +25,12 @@ public class PlaylistsROUTE {
     private ITrackDAO TrackDAO = new TrackDAO();
 
     @GET
+    @Path("/helloworld/")
+    public Response helloworold() {
+        return Response.status(200).entity("hello wold ").build();
+    }
+
+    @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPlaylists(){
@@ -117,7 +123,6 @@ public class PlaylistsROUTE {
     }
 
 
-    //For unittests
     @Inject
     public void setPlaylistsDAO(PlaylistsDAO playlistsDAO) {
         this.PlaylistsDAO = playlistsDAO;

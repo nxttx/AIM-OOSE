@@ -16,6 +16,7 @@ audio- en videostreams
     3.3 [Endpoints](#Endpoints)<br>
         3.3.1 [Login](#Login)<br>
         3.3.2 [Playlists](#Playlists)<br>
+        3.3.3 [Tracks](#Tracks)<br>
         
 
 ## Authors

@@ -9,6 +9,7 @@ import java.io.IOException;
 @Provider
 public class CorsFilter implements ContainerResponseFilter {
 
+    //todo in xml zetten
     @Override
     public void filter(ContainerRequestContext requestContext,
                        ContainerResponseContext responseContext) throws IOException {
