@@ -136,54 +136,54 @@ It will expect a response containing the complete and modified list of playlists
   "length"  :6445}
 ```
 
-##### Add a Playlist
-
-To add a playlist:
-```
-url:              /playlists
-method:           POST
-query parameter:  token
-```
-
-The body should contain the new playlist:
-```
-{
-  "id"    : -1,
-  "name"  : "Progressive Rock",
-  "owner" : false,
-  "tracks": []
-},
-```
-
-Note that the client will set the id to -1, and the 'owner' variable to false. The server is responsible for generating a unique id, and setting the 'owner' variable accordingly. These must be set on the response object.
-
-It will expect a response containing the complete and modified list of playlists:
-
-```
-{
-  "playlists" :[
-               {
-                  "id"    : 1,
-                  "name"  : "Heavy Metal",
-                  "owner" : true,
-                  "tracks": []
-               },
-               {
-                  "id"    : 2,
-                  "name"  : "Pop",
-                  "owner" : false,
-                  "tracks": []
-               },
-               {
-                 "id"    : 3,
-                 "name"  : "Progressive Rock",
-                 "owner" : true,
-                 "tracks": []
-               },
-              ],
-  "length"  :123445}
-```
-The property `length` should be in seconds. The client will convert this to hh:mm:ss.
+>##### Add a Playlist
+>
+>To add a playlist:
+>```
+>url:              /playlists
+>method:           POST
+>query parameter:  token
+>```
+>
+>The body should contain the new playlist:
+>```
+>{
+>  "id"    : -1,
+>  "name"  : "Progressive Rock",
+>  "owner" : false,
+>  "tracks": []
+>},
+>```
+>
+>Note that the client will set the id to -1, and the 'owner' variable to false. The server is responsible for generating a unique id, and setting the 'owner' variable accordingly. These must be set on the response object.
+>
+>It will expect a response containing the complete and modified list of playlists:
+>
+>```
+>{
+>  "playlists" :[
+>               {
+>                  "id"    : 1,
+>                  "name"  : "Heavy Metal",
+>                  "owner" : true,
+>                  "tracks": []
+>               },
+>               {
+>                  "id"    : 2,
+>                  "name"  : "Pop",
+>                  "owner" : false,
+>                  "tracks": []
+>               },
+>               {
+>                 "id"    : 3,
+>                 "name"  : "Progressive Rock",
+>                 "owner" : true,
+>                 "tracks": []
+>               },
+>              ],
+>  "length"  :123445}
+>```
+>The property `length` should be in seconds. The client will convert this to hh:mm:ss.
 
 ##### Edit a Playlist
 

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Playlist {
     private Integer id;
     private String name;
-    private int owner;
+    private boolean owner;
     private ArrayList<Track> tracks;
 
-    public Playlist(Integer id, String name, int owner, ArrayList<Track> tracks) {
+    public Playlist(Integer id, String name, boolean owner, ArrayList<Track> tracks) {
         this.id = id;
         this.name = name;
         this.owner = owner;
@@ -31,7 +31,7 @@ public class Playlist {
 //        this.name = name;
 //    }
 
-    public int getOwner() {
+    public boolean getOwner() {
         return owner;
     }
 

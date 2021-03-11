@@ -112,6 +112,41 @@ public class TrackDAO implements ITrackDAO {
         return null;
     }
 
+    @Override
+    public ArrayList<Track> getTracksNotInPlaylist(int id) {
+        String sql = "Select * from track where NOT track.id IN(" +
+                "    select t.id from track t join track_in_playlist i on T.id = i.Track_id Where i.Playlist_id = ?)";
+
+        try (Connection connection = dataSource.getConnection()){
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            ArrayList<Track> tracks = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Track track = new Track();
+                track.setId(resultSet.getInt("id"));
+                track.setTitle(resultSet.getString("title"));
+                track.setPerformer(resultSet.getString("performer"));
+                track.setDuration(resultSet.getInt("Duration"));
+                track.setAlbum(resultSet.getString("album"));
+                track.setPlaycount(resultSet.getInt("playcount"));
+                track.setPublicationDate(resultSet.getString("publicationdate"));
+                track.setDescription(resultSet.getString("Description"));
+                track.setOfflineAvailable(resultSet.getBoolean("OfflineAvailable"));
+                tracks.add(track);
+            }
+
+            return tracks;
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return null;
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

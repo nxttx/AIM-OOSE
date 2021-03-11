@@ -38,8 +38,8 @@ public class PlaylistsROUTETest {
         int playlistBId = 1;
         String playlistAName = "Death metal";
         String playlistBName = "Pop";
-        int playlistAOwner = 1;
-        int playlistBOwner = 1;
+        boolean playlistAOwner = false;
+        boolean playlistBOwner = true;
         int trackId = 1;
         String trackTitle = "title";
         String trackPerformer = "Somebody";
@@ -118,6 +118,37 @@ public class PlaylistsROUTETest {
 
     }
 
+    @Test
+    public void postPlaylists() {
+
+    }
+
+    @Test
+    public void postPlaylistsAlternativeFlowWrongDataType() {
+        // Arrange
+        int statuscodeExpected = 400;
+        String objectJson = "{\"id\":\"-1a\",\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
+
+        // Act
+        Response response = playlists.postPlaylists(1, objectJson);
+
+        // Assert
+        assertEquals(statuscodeExpected, response.getStatus());
+
+    }
+    @Test
+    public void postPlaylistsAlternativeFlowWrongName() {
+        // Arrange
+        int statuscodeExpected = 400;
+        String objectJson = "{\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
+
+        // Act
+        Response response = playlists.postPlaylists(1, objectJson);
+
+        // Assert
+        assertEquals(statuscodeExpected, response.getStatus());
+
+    }
 
     @Test
     public void getPlaylistTracks() {

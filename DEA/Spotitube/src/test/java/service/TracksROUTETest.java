@@ -163,7 +163,7 @@ public class TracksROUTETest {
 
         //mock
         TrackDAO trackDAOMock = mock(TrackDAO.class);
-        when(trackDAOMock.getTracksFromPlaylist(playlistnr)).thenReturn(tracks);
+        when(trackDAOMock.getTracksNotInPlaylist(playlistnr)).thenReturn(tracks);
         tracksROUTE.setTrackDAO(trackDAOMock);
 
         // Act

@@ -1,5 +1,6 @@
 package nld.spotitube.service;
 
+import com.google.gson.Gson;
 import nld.spotitube.dao.IPlaylistsDAO;
 import nld.spotitube.dao.ITrackDAO;
 import nld.spotitube.dao.PlaylistsDAO;
@@ -24,16 +25,16 @@ public class PlaylistsROUTE {
     private IPlaylistsDAO PlaylistsDAO = new PlaylistsDAO();
     private ITrackDAO TrackDAO = new TrackDAO();
 
-    @GET
-    @Path("/helloworld/")
-    public Response helloworold() {
-        return Response.status(200).entity("hello wold ").build();
-    }
+//    @GET
+//    @Path("/helloworld/")
+//    public Response helloworold() {
+//        return Response.status(200).entity("hello wold ").build();
+//    }
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlaylists(){
+    public Response getPlaylists() {
         Playlists playlists = PlaylistsDAO.getPlaylists();
         PlaylistsDTO playlistsDTO = new PlaylistsDTO();
         playlistsDTO.length = playlists.getLength();
@@ -41,10 +42,10 @@ public class PlaylistsROUTE {
         playlists.getPlaylists().forEach(playlist -> {
             var newPlaylist = new PlaylistDTO();
             newPlaylist.name = playlist.getName();
-            newPlaylist.id= playlist.getId();
+            newPlaylist.id = playlist.getId();
             newPlaylist.owner = playlist.getOwner();
             ArrayList<TrackDTO> trackList = new ArrayList<TrackDTO>();
-            playlist.getTracks().forEach(track ->{
+            playlist.getTracks().forEach(track -> {
                 var newTrack = new TrackDTO();
                 newTrack.album = track.getAlbum();
                 newTrack.id = track.getId();
@@ -67,7 +68,7 @@ public class PlaylistsROUTE {
         return Response.status(200).entity(playlistsDTO).build();
     }
 
-//    @DELETE
+    //    @DELETE
 //    @Path("/")
 //    @Produces(MediaType.APPLICATION_JSON)
 //    @Consumes(MediaType.APPLICATION_JSON)
@@ -76,14 +77,35 @@ public class PlaylistsROUTE {
 //        return Response.status(200).build();
 //    }
 //
-//    @POST
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response postPlaylists(@QueryParam("token") int token){
-//        PlaylistDTO newPlaylist = new PlaylistDTO();
-//        return Response.status(200).entity(newPlaylist).build();
-//    }
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postPlaylists(@QueryParam("token") int token, String body) {
+        //build body to object
+        Gson g = new Gson();
+        PlaylistDTO newPlaylist;
+        try {
+            newPlaylist = g.fromJson(body, PlaylistDTO.class);
+            if (newPlaylist.name == null) {
+                return Response.status(400).build();
+            }
+        }catch (Exception E){
+            return Response.status(400).build();
+        }
+        //upload new playlist to database.
+
+        PlaylistsDAO.addPlaylist(newPlaylist);
+
+        /*
+            get all playlists
+            Using a work arround. This is maybe something to fix later by making it global. But for now it works.
+        */
+        Response response = getPlaylists();
+        PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
+
+        return Response.status(201).entity(playlistsDTO).build();
+    }
 //
 //    @PUT
 //    @Path("/")
@@ -101,7 +123,7 @@ public class PlaylistsROUTE {
         ArrayList<Track> tracks = TrackDAO.getTracksFromPlaylist(id);
 
         ArrayList<TrackDTO> trackList = new ArrayList<TrackDTO>();
-        tracks.forEach(track ->{
+        tracks.forEach(track -> {
             var newTrack = new TrackDTO();
             newTrack.album = track.getAlbum();
             newTrack.id = track.getId();
@@ -117,7 +139,7 @@ public class PlaylistsROUTE {
         });
 
         TracksDTO tracksDTO = new TracksDTO();
-        tracksDTO.tracks =trackList;
+        tracksDTO.tracks = trackList;
 
         return Response.status(200).entity(tracksDTO).build();
     }

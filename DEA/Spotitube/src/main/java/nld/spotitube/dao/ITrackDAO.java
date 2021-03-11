@@ -11,5 +11,7 @@ public interface ITrackDAO {
 
     ArrayList<Track> getTracksFromPlaylist(int id);
 
+    ArrayList<Track> getTracksNotInPlaylist(int id);
+
 
 }

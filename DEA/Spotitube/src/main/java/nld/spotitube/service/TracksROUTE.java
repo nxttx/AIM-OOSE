@@ -23,7 +23,7 @@ public class TracksROUTE {
     public Response getTracks(@QueryParam("token") int token, @QueryParam("forPlaylist") int forPlaylist ) {
         ArrayList<Track> tracks;
         if (forPlaylist>0) {
-            tracks = TrackDAO.getTracksFromPlaylist(forPlaylist);
+            tracks = TrackDAO.getTracksNotInPlaylist(forPlaylist);
         }else {
             tracks = TrackDAO.getAllTracks();
         }

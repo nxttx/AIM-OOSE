@@ -3,6 +3,7 @@ package nld.spotitube.dao;
 import nld.spotitube.domain.Playlist;
 import nld.spotitube.domain.Playlists;
 import nld.spotitube.domain.Track;
+import nld.spotitube.service.dto.PlaylistDTO;
 
 import javax.annotation.Resource;
 import javax.enterprise.inject.Default;
@@ -61,7 +62,7 @@ public class PlaylistsDAO implements IPlaylistsDAO {
                         length+=resultSet2.getInt("Duration");
                     }
 
-                    Playlist playlist = new Playlist(resultSet.getInt("id"),resultSet.getString("Naam"),resultSet.getInt("Eigenaar"), trackList);
+                    Playlist playlist = new Playlist(resultSet.getInt("id"),resultSet.getString("Naam"),resultSet.getBoolean("Eigenaar"), trackList);
                     PlaylistsList.add(playlist);
                 } catch (SQLException exception) {
                     exception.printStackTrace();
@@ -80,6 +81,29 @@ public class PlaylistsDAO implements IPlaylistsDAO {
         return null;
 
     }
+
+    @Override
+    public void addPlaylist(PlaylistDTO playlistDTO){
+        String sql = "INSERT INTO Playlist (Naam, Eigenaar) Values (?,?)";
+
+        String name = playlistDTO.name;
+        //todo fix owner system.
+        boolean owner = true ; //playlistDTO.owner;
+
+        try (Connection connection = dataSource.getConnection()){
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setBoolean(2, owner);
+            int affectedRows = statement.executeUpdate();
+
+            //!!Important!! todo think about error handling
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
