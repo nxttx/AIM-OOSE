@@ -137,6 +137,25 @@ public class PlaylistsDAO implements IPlaylistsDAO {
         }
     }
 
+    @Override
+    public void updatePlaylist(PlaylistDTO playlistDTO) {
+        String sql = "UPDATE Playlist SET Naam = ? WHERE id = ?";
+
+        String name = playlistDTO.name;
+        int id = playlistDTO.id;
+        //todo fix owner system.
+
+        try (Connection connection = dataSource.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setInt(2, id);
+            int affectedRows = statement.executeUpdate();
+            //!!Important!! todo think about error handling
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

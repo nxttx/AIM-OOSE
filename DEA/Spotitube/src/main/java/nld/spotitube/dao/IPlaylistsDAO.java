@@ -8,4 +8,6 @@ public interface IPlaylistsDAO {
     void addPlaylist(PlaylistDTO playlistDTO);
 
     void deletePlaylist(int id);
+
+    void updatePlaylist(PlaylistDTO playlistDTO);
 }

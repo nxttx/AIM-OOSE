@@ -24,6 +24,7 @@ public class PlaylistsROUTE {
 
     private IPlaylistsDAO PlaylistsDAO = new PlaylistsDAO();
     private ITrackDAO TrackDAO = new TrackDAO();
+    private final Gson JSON = new Gson();
 
 //    @GET
 //    @Path("/helloworld/")
@@ -72,17 +73,14 @@ public class PlaylistsROUTE {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deletePlaylists(@QueryParam("token") int token, @PathParam("id") int id ){
-
+    public Response deletePlaylists(@QueryParam("token") int token, @PathParam("id") int id) {
         PlaylistsDAO.deletePlaylist(id);
-
         /*
             get all playlists
             Using a work arround. This is maybe something to fix later by making it global. But for now it works.
         */
         Response response = getPlaylists();
         PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
-
         return Response.status(201).entity(playlistsDTO).build();
     }
 
@@ -92,14 +90,14 @@ public class PlaylistsROUTE {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postPlaylists(@QueryParam("token") int token, String body) {
         //build body to object
-        Gson g = new Gson();
+
         PlaylistDTO newPlaylist;
         try {
-            newPlaylist = g.fromJson(body, PlaylistDTO.class);
+            newPlaylist = JSON.fromJson(body, PlaylistDTO.class);
             if (newPlaylist.name == null) {
                 return Response.status(400).build();
             }
-        }catch (Exception E){
+        } catch (Exception E) {
             return Response.status(400).build();
         }
         //upload new playlist to database.
@@ -115,15 +113,35 @@ public class PlaylistsROUTE {
 
         return Response.status(201).entity(playlistsDTO).build();
     }
-//
-//    @PUT
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response putPlaylists(@QueryParam("token") int token){
-//
-//        return Response.status(200).build();
-//    }
+
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response putPlaylists(@QueryParam("token") int token, @PathParam("id") int id, String body) { //todo unittests
+        //build body to object
+        PlaylistDTO newPlaylist;
+        try {
+            newPlaylist = JSON.fromJson(body, PlaylistDTO.class);
+            if (newPlaylist.name == null) {
+                return Response.status(400).build();
+            }
+        } catch (Exception E) {
+            return Response.status(400).build();
+        }
+        //edit that playlist
+        PlaylistsDAO.updatePlaylist(newPlaylist);
+
+
+        /*
+            get all playlists
+            Using a work arround. This is maybe something to fix later by making it global. But for now it works.
+        */
+        Response response = getPlaylists();
+        PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
+
+        return Response.status(200).entity(playlistsDTO).build();
+    }
 
     @GET
     @Path("/{id}/tracks")
