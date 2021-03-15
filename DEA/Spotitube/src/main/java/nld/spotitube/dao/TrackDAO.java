@@ -79,7 +79,7 @@ public class TrackDAO implements ITrackDAO {
 
     @Override
     public ArrayList<Track> getTracksFromPlaylist(int id) {
-        String sql = "select t.id, Performer, Title, OfflineAvailable, Duration, Album, PublicationDate, Description, " +
+        String sql = "Select t.id, Performer, Title, OfflineAvailable, Duration, Album, PublicationDate, Description, " +
                 "playcount from track t join track_in_playlist i on t.id = i.Track_id where i.Playlist_id = ?";
 
         try (Connection connection = dataSource.getConnection()){
