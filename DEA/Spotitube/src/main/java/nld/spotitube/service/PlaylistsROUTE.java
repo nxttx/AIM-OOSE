@@ -118,7 +118,7 @@ public class PlaylistsROUTE {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response putPlaylists(@QueryParam("token") int token, @PathParam("id") int id, String body) { //todo unittests
+    public Response putPlaylists(@QueryParam("token") int token, @PathParam("id") int id, String body) {
         //build body to object
         PlaylistDTO newPlaylist;
         try {
