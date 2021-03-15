@@ -186,47 +186,47 @@ request.
 >```
 >The property `length` should be in seconds. The client will convert this to hh:mm:ss.
 
-##### Edit a Playlist
-
-To edit the name of a playlist:
-```
-url:              /playlists/:id
-method:           PUT
-query parameter:  token
-```
-
-The body should contain the modified playlist:
-```
-{
-  "id"    : 1,
-  "name"  : "Heavy Metal",
-  "owner" : true,
-  "tracks": []
-},
-```
-
-It will expect a response containing the complete and modified list of playlists:
-
-```
-{
-  "playlists" :[
-               {
-                  "id"    : 1,
-                  "name"  : "Heavy Metal",
-                  "owner" : true,
-                  "tracks": []
-               },
-               {
-                  "id"    : 2,
-                  "name"  : "Pop",
-                  "owner" : false,
-                  "tracks": []
-               }
-              ],
-  "length"  :123445
-}
-```
-The property `length` should be in seconds. The client will convert this to hh:mm:ss.
+>##### Edit a Playlist
+>
+>To edit the name of a playlist:
+>```
+>url:              /playlists/:id
+>method:           PUT
+>query parameter:  token
+>```
+>
+>The body should contain the modified playlist:
+>```
+>{
+>  "id"    : 1,
+>  "name"  : "Heavy Metal",
+>  "owner" : true,
+>  "tracks": []
+>},
+>```
+>
+>It will expect a response containing the complete and modified list of playlists:
+>
+>```
+>{
+>  "playlists" :[
+>               {
+>                  "id"    : 1,
+>                  "name"  : "Heavy Metal",
+>                  "owner" : true,
+>                  "tracks": []
+>               },
+>               {
+>                  "id"    : 2,
+>                  "name"  : "Pop",
+>                  "owner" : false,
+>                  "tracks": []
+>               }
+>              ],
+>  "length"  :123445
+>}
+>```
+>The property `length` should be in seconds. The client will convert this to hh:mm:ss.
 #### Tracks
 
 >##### Get all tracks
