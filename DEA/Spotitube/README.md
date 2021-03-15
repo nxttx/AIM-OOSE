@@ -113,28 +113,29 @@ request.
 >
 >The property `length` should be in seconds and represents the total length of all playlists. The client will convert this to hh:mm:ss.
 
-##### Delete a Playlist
-
-To delete a playlist:
-```
-url:              /playlists/:id
-method:           DELETE
-query parameter:  token
-```
-It will expect a response containing the complete and modified list of playlists:
-
-```
-{
-  "playlists" :[
-               {
-                  "id"    : 1,
-                  "name"  : "Heavy Metal",
-                  "owner" : true,
-                  "tracks": []
-               }
-              ],
-  "length"  :6445}
-```
+>##### Delete a Playlist
+>
+>To delete a playlist:
+>```
+>url:              /playlists/:id
+>method:           DELETE
+>query parameter:  token
+>```
+>It will expect a response containing the complete and modified list of playlists:
+>
+>```
+>{
+>  "playlists" :[
+>               {
+>                  "id"    : 1,
+>                  "name"  : "Heavy Metal",
+>                  "owner" : true,
+>                  "tracks": []
+>               }
+>              ],
+>  "length"  :6445}
+>```
+>
 
 >##### Add a Playlist
 >

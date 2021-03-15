@@ -104,6 +104,39 @@ public class PlaylistsDAO implements IPlaylistsDAO {
 
     }
 
+    @Override
+    public void deletePlaylist(int id) {
+        String sql = "DELETE FROM Playlist WHERE Playlist.id = ?";
+        try (Connection connection = dataSource.getConnection()){
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+
+
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0){
+                String sql2 = "DELETE FROM Playlist WHERE Playlist.id = ?";
+                try (Connection connection2 = dataSource.getConnection()) {
+
+                    PreparedStatement statement2 = connection2.prepareStatement(sql2);
+                    statement2.setInt(1, id);
+
+
+                    int affectedRows2 = statement2.executeUpdate();
+                    if(affectedRows2 == 0){
+                        //throw error
+                    }
+                }catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+            //!!Important!! todo think about error handling
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
