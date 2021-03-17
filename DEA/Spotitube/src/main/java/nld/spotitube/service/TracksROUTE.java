@@ -3,6 +3,7 @@ package nld.spotitube.service;
 import nld.spotitube.dao.ITrackDAO;
 import nld.spotitube.dao.TrackDAO;
 import nld.spotitube.domain.Track;
+import nld.spotitube.service.dto.DTOconverter;
 import nld.spotitube.service.dto.TrackDTO;
 import nld.spotitube.service.dto.TracksDTO;
 
@@ -29,17 +30,7 @@ public class TracksROUTE {
         }
         ArrayList<TrackDTO> trackList = new ArrayList<TrackDTO>();
         tracks.forEach(track ->{
-            var newTrack = new TrackDTO();
-            newTrack.album = track.getAlbum();
-            newTrack.id = track.getId();
-            newTrack.description = track.getDescription();
-            newTrack.duration = track.getDuration();
-            newTrack.playcount = track.getPlaycount();
-            newTrack.offlineAvailable = track.getOfflineAvailable();
-            newTrack.performer = track.getPerformer();
-            newTrack.publicationDate = track.getPublicationDate();
-            newTrack.title = track.getTitle();
-
+            TrackDTO newTrack = DTOconverter.TrackToTrackDTO(track);
             trackList.add(newTrack);
         });
 

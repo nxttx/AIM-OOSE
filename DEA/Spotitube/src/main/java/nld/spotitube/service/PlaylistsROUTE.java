@@ -1,16 +1,16 @@
 package nld.spotitube.service;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import nld.spotitube.dao.IPlaylistsDAO;
 import nld.spotitube.dao.ITrackDAO;
 import nld.spotitube.dao.PlaylistsDAO;
 import nld.spotitube.dao.TrackDAO;
 import nld.spotitube.domain.Playlists;
 import nld.spotitube.domain.Track;
-import nld.spotitube.service.dto.PlaylistDTO;
-import nld.spotitube.service.dto.PlaylistsDTO;
-import nld.spotitube.service.dto.TrackDTO;
-import nld.spotitube.service.dto.TracksDTO;
+import nld.spotitube.exceptions.PlaylistNoNameException;
+import nld.spotitube.exceptions.TrackNoTitleException;
+import nld.spotitube.service.dto.*;
 
 
 import javax.inject.Inject;
@@ -47,17 +47,7 @@ public class PlaylistsROUTE {
             newPlaylist.owner = playlist.getOwner();
             ArrayList<TrackDTO> trackList = new ArrayList<TrackDTO>();
             playlist.getTracks().forEach(track -> {
-                var newTrack = new TrackDTO();
-                newTrack.album = track.getAlbum();
-                newTrack.id = track.getId();
-                newTrack.description = track.getDescription();
-                newTrack.duration = track.getDuration();
-                newTrack.playcount = track.getPlaycount();
-                newTrack.offlineAvailable = track.getOfflineAvailable();
-                newTrack.performer = track.getPerformer();
-                newTrack.publicationDate = track.getPublicationDate();
-                newTrack.title = track.getTitle();
-
+                TrackDTO newTrack =DTOconverter.TrackToTrackDTO(track);
                 trackList.add(newTrack);
             });
 
@@ -90,14 +80,10 @@ public class PlaylistsROUTE {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postPlaylists(@QueryParam("token") int token, String body) {
         //build body to object
-
         PlaylistDTO newPlaylist;
         try {
-            newPlaylist = JSON.fromJson(body, PlaylistDTO.class);
-            if (newPlaylist.name == null) {
-                return Response.status(400).build();
-            }
-        } catch (Exception E) {
+            newPlaylist = DTOconverter.JSONToPlaylistDTO(body);
+        }catch(PlaylistNoNameException | JsonSyntaxException E){
             return Response.status(400).build();
         }
         //upload new playlist to database.
@@ -122,11 +108,8 @@ public class PlaylistsROUTE {
         //build body to object
         PlaylistDTO newPlaylist;
         try {
-            newPlaylist = JSON.fromJson(body, PlaylistDTO.class);
-            if (newPlaylist.name == null) {
-                return Response.status(400).build();
-            }
-        } catch (Exception E) {
+            newPlaylist = DTOconverter.JSONToPlaylistDTO(body);
+        }catch(PlaylistNoNameException | JsonSyntaxException E){
             return Response.status(400).build();
         }
         //edit that playlist
@@ -151,17 +134,7 @@ public class PlaylistsROUTE {
 
         ArrayList<TrackDTO> trackList = new ArrayList<TrackDTO>();
         tracks.forEach(track -> {
-            var newTrack = new TrackDTO();
-            newTrack.album = track.getAlbum();
-            newTrack.id = track.getId();
-            newTrack.description = track.getDescription();
-            newTrack.duration = track.getDuration();
-            newTrack.playcount = track.getPlaycount();
-            newTrack.offlineAvailable = track.getOfflineAvailable();
-            newTrack.performer = track.getPerformer();
-            newTrack.publicationDate = track.getPublicationDate();
-            newTrack.title = track.getTitle();
-
+            TrackDTO newTrack =DTOconverter.TrackToTrackDTO(track);
             trackList.add(newTrack);
         });
 
@@ -171,6 +144,39 @@ public class PlaylistsROUTE {
         return Response.status(200).entity(tracksDTO).build();
     }
 
+//    @DELETE
+//    @Path("/{id}/tracks/{trackID}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response deleteTrackFromPlaylist(@QueryParam("token") int token, @PathParam("id") int id, @PathParam("trackID") int trackID) {
+//        var tracksDTO= new TracksDTO();
+//        return Response.status(200).entity(tracksDTO).build();
+//    }
+
+
+    @POST
+    @Path("/{id}/tracks/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postTrackInPlaylist(@QueryParam("token") int token, @PathParam("id") int playlistId, String body) {
+        //todo unittests
+        //build body to object
+        TrackDTO newTrack;
+        try {
+            newTrack = DTOconverter.JSONToTrackDTO(body);
+        }catch(TrackNoTitleException | JsonSyntaxException E){
+            return Response.status(400).build();
+        }
+        //edit that playlist
+        TrackDAO.addTrackToPlaylist(playlistId, newTrack);
+
+        /*
+            get all tracks of that playlist
+            Using a work arround. This is maybe something to fix later by making it global. But for now it works.
+        */
+        Response response = getPlaylistTracks(token, playlistId);
+        TracksDTO tracksDTO = (TracksDTO) response.getEntity();
+
+        return Response.status(201).entity(tracksDTO).build();
+    }
 
     @Inject
     public void setPlaylistsDAO(PlaylistsDAO playlistsDAO) {

@@ -1,6 +1,7 @@
 package nld.spotitube.dao;
 
 import nld.spotitube.domain.Track;
+import nld.spotitube.service.dto.TrackDTO;
 
 import javax.annotation.Resource;
 import javax.enterprise.inject.Default;
@@ -145,6 +146,25 @@ public class TrackDAO implements ITrackDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public void addTrackToPlaylist(int playlistId, TrackDTO newTrack) {
+        String sql = "INSERT INTO track_in_playlist(Track_id, Playlist_id) VALUES  (?, ?)";
+
+        int trackid = newTrack.id;
+        //todo fix owner system.
+
+        try (Connection connection = dataSource.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, trackid);
+            statement.setInt(2, playlistId);
+            int affectedRows = statement.executeUpdate();
+            //!!Important!! todo think about error handling
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     public void setDataSource(DataSource dataSource) {
