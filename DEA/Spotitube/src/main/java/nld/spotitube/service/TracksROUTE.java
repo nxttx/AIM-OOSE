@@ -21,7 +21,7 @@ public class TracksROUTE {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTracks(@QueryParam("token") int token, @QueryParam("forPlaylist") int forPlaylist ) {
+    public Response getTracks(@QueryParam("token") String token, @QueryParam("forPlaylist") int forPlaylist ) {
         ArrayList<Track> tracks;
         if (forPlaylist>0) {
             tracks = TrackDAO.getTracksNotInPlaylist(forPlaylist);

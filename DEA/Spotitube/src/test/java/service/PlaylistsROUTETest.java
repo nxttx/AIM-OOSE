@@ -178,7 +178,7 @@ public class PlaylistsROUTETest {
         playlists.setPlaylistsDAO(playlistsDAOMock2);
 
         // Act
-        Response response = playlists.deletePlaylists(1, PLAYLIST_NUMBER);
+        Response response = playlists.deletePlaylists("1", PLAYLIST_NUMBER);
         PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
 
         // Assert
@@ -272,7 +272,7 @@ public class PlaylistsROUTETest {
         playlists.setPlaylistsDAO(playlistsDAOMock2);
 
         // Act
-        Response response = playlists.postPlaylists(1, objectJson);
+        Response response = playlists.postPlaylists("1", objectJson);
         PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
 
         // Assert
@@ -315,7 +315,7 @@ public class PlaylistsROUTETest {
         String objectJson = "{\"id\":\"-1a\",\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
 
         // Act
-        Response response = playlists.postPlaylists(1, objectJson);
+        Response response = playlists.postPlaylists("1", objectJson);
 
         // Assert
         assertEquals(statuscodeExpected, response.getStatus());
@@ -328,7 +328,7 @@ public class PlaylistsROUTETest {
         String objectJson = "{\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
 
         // Act
-        Response response = playlists.postPlaylists(1, objectJson);
+        Response response = playlists.postPlaylists("1", objectJson);
 
         // Assert
         assertEquals(statuscodeExpected, response.getStatus());
@@ -396,7 +396,7 @@ public class PlaylistsROUTETest {
         playlists.setPlaylistsDAO(playlistsDAOMock2);
 
         // Act
-        Response response = playlists.putPlaylists(1, 1,objectJson);
+        Response response = playlists.putPlaylists("1", 1,objectJson);
         PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
 
         // Assert
@@ -437,7 +437,7 @@ public class PlaylistsROUTETest {
         String objectJson = "{\"id\":\"-1a\",\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
 
         // Act
-        Response response = playlists.putPlaylists(1, 1, objectJson);
+        Response response = playlists.putPlaylists("1", 1, objectJson);
 
         // Assert
         assertEquals(statuscodeExpected, response.getStatus());
@@ -450,7 +450,7 @@ public class PlaylistsROUTETest {
         String objectJson = "{\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
 
         // Act
-        Response response = playlists.putPlaylists(1,1, objectJson);
+        Response response = playlists.putPlaylists("1",1, objectJson);
 
         // Assert
         assertEquals(statuscodeExpected, response.getStatus());
@@ -513,7 +513,7 @@ public class PlaylistsROUTETest {
         playlists.setTrackDAO(trackDAOMock);
 
         // Act
-        Response response = playlists.getPlaylistTracks(1,1);
+        Response response = playlists.getPlaylistTracks("1",1);
         TracksDTO responseTracks = (TracksDTO) response.getEntity();
 
         // Assert

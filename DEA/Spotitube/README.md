@@ -329,99 +329,99 @@ request.
 >```
 >The property `duration` should be in seconds. The client will convert this to hh:mm:ss.
 >The property `publicationDate` should be a String representation of a Date, formatted as MM-dd-yyyy
+
+>##### Remove a track from a Playlist
 >
-##### Remove a track from a Playlist
+>```
+>url:              /playlists/:id/tracks/:id
+>method:           DELETE
+>query parameter:  token
+>```
+>It will expect a response containing the complete and modified list of tracks:
+>
+>```
+>{
+>  "tracks": [
+>            {
+>              "id": 1,
+>              "title": "Song for someone",
+>              "performer": "The Frames",
+>              "duration": 350,
+>              "album": "The cost",
+>              "playcount": undefined,
+>              "publicationDate": undefined,
+>              "description": undefined,
+>              "offlineAvailable": false
+>            }
+>          ]
+>}
+>```
 
-```
-url:              /playlists/:id/tracks/:id
-method:           DELETE
-query parameter:  token
-```
-It will expect a response containing the complete and modified list of tracks:
-
-```
-{
-  "tracks": [
-            {
-              "id": 1,
-              "title": "Song for someone",
-              "performer": "The Frames",
-              "duration": 350,
-              "album": "The cost",
-              "playcount": undefined,
-              "publicationDate": undefined,
-              "description": undefined,
-              "offlineAvailable": false
-            }
-          ]
-}
-```
-
-##### Add a track to a Playlist
-
-```
-url:              /playlists/:id/tracks
-method:           POST
-query parameter:  token
-```
-
-The body should contain the track to be added:
-```
-{
-  "id": 4,
-  "title": "So Long, Marianne",
-  "performer": "Leonard Cohen",
-  "duration": 546,
-  "album": "Songs of Leonard Cohen",
-  "playcount": undefined,
-  "publicationDate": undefined,
-  "description": undefined,
-  "offlineAvailable": false
-}
-```
-
-Note that the relevant parts are the `id` and `offlineAvailable`. The `id` should be used by the server to lookup the
-Track, before adding it to the Playlist. The offline availability should correctly be set.
-
-It will expect a response containing the complete list of tracks for the given playlist:
-
-
-```
-{
-  "tracks": [
-            {
-              "id": 1,
-              "title": "Song for someone",
-              "performer": "The Frames",
-              "duration": 350,
-              "album": "The cost",
-              "playcount": undefined,
-              "publicationDate": undefined,
-              "description": undefined,
-              "offlineAvailable": false
-            },
-            {
-              "id": 2,
-              "title": "The cost",
-              "performer": "The Frames",
-              "duration": 423,
-              "album": undefined,
-              "playcount": 37,
-              "publicationDate": "19-03-2006",
-              "description": "Title song from the Album The Cost",
-              "offlineAvailable": true
-            },
-            {
-              "id": 4,
-              "title": "So Long, Marianne",
-              "performer": "Leonard Cohen",
-              "duration": 546,
-              "album": "Songs of Leonard Cohen,
-              "playcount": undefined,
-              "publicationDate": undefined,
-              "description": undefined,
-              "offlineAvailable": false
-            }
-          ]
-}
-```
+> ##### Add a track to a Playlist
+> 
+> ```
+> url:              /playlists/:id/tracks
+> method:           POST
+> query parameter:  token
+> ```
+> 
+> The body should contain the track to be added:
+> ```
+> {
+>   "id": 4,
+>   "title": "So Long, Marianne",
+>   "performer": "Leonard Cohen",
+>   "duration": 546,
+>   "album": "Songs of Leonard Cohen",
+>   "playcount": undefined,
+>   "publicationDate": undefined,
+>   "description": undefined,
+>   "offlineAvailable": false
+> }
+> ```
+> 
+> Note that the relevant parts are the `id` and `offlineAvailable`. The `id` should be used by the server to lookup the
+> Track, before adding it to the Playlist. The offline availability should correctly be set.
+> 
+> It will expect a response containing the complete list of tracks for the given playlist:
+> 
+> 
+> ```
+> {
+>   "tracks": [
+>             {
+>               "id": 1,
+>               "title": "Song for someone",
+>               "performer": "The Frames",
+>               "duration": 350,
+>               "album": "The cost",
+>               "playcount": undefined,
+>               "publicationDate": undefined,
+>               "description": undefined,
+>               "offlineAvailable": false
+>             },
+>             {
+>               "id": 2,
+>               "title": "The cost",
+>               "performer": "The Frames",
+>               "duration": 423,
+>               "album": undefined,
+>               "playcount": 37,
+>               "publicationDate": "19-03-2006",
+>               "description": "Title song from the Album The Cost",
+>               "offlineAvailable": true
+>             },
+>             {
+>               "id": 4,
+>               "title": "So Long, Marianne",
+>               "performer": "Leonard Cohen",
+>               "duration": 546,
+>               "album": "Songs of Leonard Cohen,
+>               "playcount": undefined,
+>               "publicationDate": undefined,
+>               "description": undefined,
+>               "offlineAvailable": false
+>             }
+>           ]
+> }
+> ```

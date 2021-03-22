@@ -15,4 +15,6 @@ public interface ITrackDAO {
     ArrayList<Track> getTracksNotInPlaylist(int id);
 
     void addTrackToPlaylist(int playlistId, TrackDTO newTrack);
+
+    void deleteTrackFromPlaylist(int playlistId, int trackID);
 }

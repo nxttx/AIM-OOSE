@@ -63,7 +63,7 @@ public class PlaylistsROUTE {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deletePlaylists(@QueryParam("token") int token, @PathParam("id") int id) {
+    public Response deletePlaylists(@QueryParam("token") String token, @PathParam("id") int id) {
         PlaylistsDAO.deletePlaylist(id);
         /*
             get all playlists
@@ -78,7 +78,7 @@ public class PlaylistsROUTE {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postPlaylists(@QueryParam("token") int token, String body) {
+    public Response postPlaylists(@QueryParam("token") String token, String body) {
         //build body to object
         PlaylistDTO newPlaylist;
         try {
@@ -104,7 +104,7 @@ public class PlaylistsROUTE {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response putPlaylists(@QueryParam("token") int token, @PathParam("id") int id, String body) {
+    public Response putPlaylists(@QueryParam("token") String token, @PathParam("id") int id, String body) {
         //build body to object
         PlaylistDTO newPlaylist;
         try {
@@ -129,7 +129,7 @@ public class PlaylistsROUTE {
     @GET
     @Path("/{id}/tracks")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlaylistTracks(@QueryParam("token") int token, @PathParam("id") int id) {
+    public Response getPlaylistTracks(@QueryParam("token") String token, @PathParam("id") int id) {
         ArrayList<Track> tracks = TrackDAO.getTracksFromPlaylist(id);
 
         ArrayList<TrackDTO> trackList = new ArrayList<TrackDTO>();
@@ -144,19 +144,28 @@ public class PlaylistsROUTE {
         return Response.status(200).entity(tracksDTO).build();
     }
 
-//    @DELETE
-//    @Path("/{id}/tracks/{trackID}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response deleteTrackFromPlaylist(@QueryParam("token") int token, @PathParam("id") int id, @PathParam("trackID") int trackID) {
-//        var tracksDTO= new TracksDTO();
-//        return Response.status(200).entity(tracksDTO).build();
-//    }
+    @DELETE
+    @Path("/{id}/tracks/{trackID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteTrackFromPlaylist(@QueryParam("token") String token, @PathParam("id") int playlistId, @PathParam("trackID") int trackID) {
+        //todo unittests
+        TrackDAO.deleteTrackFromPlaylist(playlistId, trackID);
+
+        /*
+            get all tracks of that playlist
+            Using a work arround. This is maybe something to fix later by making it global. But for now it works.
+        */
+        Response response = getPlaylistTracks(token, playlistId);
+        TracksDTO tracksDTO = (TracksDTO) response.getEntity();
+
+        return Response.status(200).entity(tracksDTO).build();
+    }
 
 
     @POST
     @Path("/{id}/tracks/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postTrackInPlaylist(@QueryParam("token") int token, @PathParam("id") int playlistId, String body) {
+    public Response postTrackInPlaylist(@QueryParam("token") String token, @PathParam("id") int playlistId, String body) {
         //todo unittests
         //build body to object
         TrackDTO newTrack;

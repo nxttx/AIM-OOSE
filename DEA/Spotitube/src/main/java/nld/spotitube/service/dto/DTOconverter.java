@@ -5,13 +5,23 @@ import com.google.gson.JsonSyntaxException;
 import nld.spotitube.domain.Track;
 import nld.spotitube.exceptions.PlaylistNoNameException;
 import nld.spotitube.exceptions.TrackNoTitleException;
+import nld.spotitube.exceptions.UserNoNameException;
 
 import javax.ws.rs.core.Response;
 
 public class DTOconverter {
     private static final Gson JSON = new Gson();
 
-    public static TrackDTO JSONToTrackDTO(String JSONObject) throws TrackNoTitleException, JsonSyntaxException{
+    public static UserDTO JSONToUserDTO(String JSONObject) throws UserNoNameException, JsonSyntaxException{//todo unittests
+        UserDTO userDTO;
+        userDTO = JSON.fromJson(JSONObject, UserDTO.class);
+        if (userDTO.user == null) {
+            throw new UserNoNameException();
+        }
+        return userDTO;
+    }
+
+    public static TrackDTO JSONToTrackDTO(String JSONObject) throws TrackNoTitleException, JsonSyntaxException{ //todo unittests
         TrackDTO newTrack;
             newTrack = JSON.fromJson(JSONObject, TrackDTO.class);
             if (newTrack.title == null) {

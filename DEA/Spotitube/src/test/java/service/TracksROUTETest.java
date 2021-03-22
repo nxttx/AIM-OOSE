@@ -81,7 +81,7 @@ public class TracksROUTETest {
         tracksROUTE.setTrackDAO(trackDAOMock);
 
         // Act
-        Response response = tracksROUTE.getTracks(1,0);
+        Response response = tracksROUTE.getTracks("1",0);
         TracksDTO responseTracks = (TracksDTO) response.getEntity();
 
         // Assert
@@ -167,7 +167,7 @@ public class TracksROUTETest {
         tracksROUTE.setTrackDAO(trackDAOMock);
 
         // Act
-        Response response = tracksROUTE.getTracks(1,playlistnr);
+        Response response = tracksROUTE.getTracks("1",playlistnr);
         TracksDTO responseTracks = (TracksDTO) response.getEntity();
 
         // Assert
