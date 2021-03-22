@@ -88,7 +88,7 @@ public class PlaylistsROUTE {
         }
         //upload new playlist to database.
 
-        PlaylistsDAO.addPlaylist(newPlaylist);
+        PlaylistsDAO.addPlaylist(newPlaylist.name, token);
 
         /*
             get all playlists
@@ -113,7 +113,7 @@ public class PlaylistsROUTE {
             return Response.status(400).build();
         }
         //edit that playlist
-        PlaylistsDAO.updatePlaylist(newPlaylist);
+        PlaylistsDAO.updatePlaylist(newPlaylist.name, newPlaylist.id);
 
 
         /*
@@ -175,7 +175,7 @@ public class PlaylistsROUTE {
             return Response.status(400).build();
         }
         //edit that playlist
-        TrackDAO.addTrackToPlaylist(playlistId, newTrack);
+        TrackDAO.addTrackToPlaylist(playlistId, newTrack.id);
 
         /*
             get all tracks of that playlist

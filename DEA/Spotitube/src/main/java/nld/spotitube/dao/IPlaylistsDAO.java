@@ -5,9 +5,10 @@ import nld.spotitube.service.dto.PlaylistDTO;
 
 public interface IPlaylistsDAO {
     Playlists getPlaylists();
-    void addPlaylist(PlaylistDTO playlistDTO);
+
+    void addPlaylist(String playlistName, String owner);
 
     void deletePlaylist(int id);
 
-    void updatePlaylist(PlaylistDTO playlistDTO);
+    void updatePlaylist(String playlistName, int PlatlistId);
 }

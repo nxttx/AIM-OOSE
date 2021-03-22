@@ -83,18 +83,18 @@ public class PlaylistsDAO implements IPlaylistsDAO {
     }
 
     @Override
-    public void addPlaylist(PlaylistDTO playlistDTO){
+    public void addPlaylist(String playlistName, String owner){
         String sql = "INSERT INTO Playlist (Naam, Eigenaar) Values (?,?)";
 
-        String name = playlistDTO.name;
+        String name = playlistName;
         //todo fix owner system.
-        boolean owner = true ; //playlistDTO.owner;
+        boolean tempOwner = true ; //playlistDTO.owner;
 
         try (Connection connection = dataSource.getConnection()){
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
-            statement.setBoolean(2, owner);
+            statement.setBoolean(2, tempOwner);
             int affectedRows = statement.executeUpdate();
 
             //!!Important!! todo think about error handling
@@ -138,11 +138,11 @@ public class PlaylistsDAO implements IPlaylistsDAO {
     }
 
     @Override
-    public void updatePlaylist(PlaylistDTO playlistDTO) {
+    public void updatePlaylist(String playlistName, int PlatlistId) {
         String sql = "UPDATE Playlist SET Naam = ? WHERE id = ?";
 
-        String name = playlistDTO.name;
-        int id = playlistDTO.id;
+        String name = playlistName;
+        int id = PlatlistId;
         //todo fix owner system.
 
         try (Connection connection = dataSource.getConnection()){
