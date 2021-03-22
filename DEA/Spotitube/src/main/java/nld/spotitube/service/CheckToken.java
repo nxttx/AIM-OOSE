@@ -18,7 +18,7 @@ public class CheckToken implements ContainerRequestFilter {
     private IUserDAO userDAO = new UserDAO();
 
     @Override
-    public void filter(ContainerRequestContext requestContext) {//todo unittests
+    public void filter(ContainerRequestContext requestContext) {
 
         var uriInfo = requestContext.getUriInfo();
         var path = uriInfo.getPath();

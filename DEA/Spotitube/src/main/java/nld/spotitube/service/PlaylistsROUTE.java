@@ -101,7 +101,6 @@ public class PlaylistsROUTE {
     @Path("/{id}/tracks/{trackID}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteTrackFromPlaylist(@QueryParam("token") String token, @PathParam("id") int playlistId, @PathParam("trackID") int trackID) throws NoRowsAreEffectedException, SQLException {
-        //todo unittests
         TrackDAO.deleteTrackFromPlaylist(playlistId, trackID);
 
         ArrayList<Track> tracks = TrackDAO.getTracksFromPlaylist(playlistId);
@@ -115,7 +114,6 @@ public class PlaylistsROUTE {
     @Path("/{id}/tracks/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response postTrackInPlaylist(@QueryParam("token") String token, @PathParam("id") int playlistId, String body) throws NoRowsAreEffectedException, TrackNoTitleException, SQLException {
-        //todo unittests
         //build body to object
         TrackDTO newTrack;
 
