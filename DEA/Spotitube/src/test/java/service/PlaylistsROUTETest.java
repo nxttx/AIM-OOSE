@@ -6,9 +6,7 @@ import nld.spotitube.domain.Playlist;
 import nld.spotitube.domain.Track;
 import nld.spotitube.service.PlaylistsROUTE;
 import nld.spotitube.domain.Playlists;
-import nld.spotitube.service.dto.PlaylistDTO;
 import nld.spotitube.service.dto.PlaylistsDTO;
-import nld.spotitube.service.dto.TrackDTO;
 import nld.spotitube.service.dto.TracksDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -220,7 +218,7 @@ public class PlaylistsROUTETest {
 
         // mock
         PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
-        doNothing().when(playlistsDAOMock).addPlaylist(new PlaylistDTO());
+        doNothing().when(playlistsDAOMock).addPlaylist("","");
         playlists.setPlaylistsDAO(playlistsDAOMock);
 
         //Mock for getPlaylists:(For the current crossreferance. )
@@ -344,7 +342,7 @@ public class PlaylistsROUTETest {
 
         // mock
         PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
-        doNothing().when(playlistsDAOMock).updatePlaylist(new PlaylistDTO());
+        doNothing().when(playlistsDAOMock).updatePlaylist("",1);
         playlists.setPlaylistsDAO(playlistsDAOMock);
 
         //Mock for getPlaylists:(For the current crossreferance. )

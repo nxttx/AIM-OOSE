@@ -1,12 +1,11 @@
 package nld.spotitube.dao;
 
 import nld.spotitube.domain.Track;
-import nld.spotitube.service.dto.TrackDTO;
+import nld.spotitube.exceptions.NoRowsAreEffectedException;
 
 import javax.annotation.Resource;
 import javax.enterprise.inject.Default;
 import javax.sql.DataSource;
-import javax.ws.rs.DELETE;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class TrackDAO implements ITrackDAO {
     DataSource dataSource;
 
     @Override
-    public ArrayList<Track> getAllTracks() {
+    public ArrayList<Track> getAllTracks() throws SQLException {
         String sql = "select * from track";
 
         try (Connection connection = dataSource.getConnection())  {
@@ -41,15 +40,13 @@ public class TrackDAO implements ITrackDAO {
             }
             return tracks;
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
-
-        return null;
 
     }
 
     @Override
-    public Track getTrack(int id) {
+    public Track getTrack(int id) throws SQLException {
         String sql = "select * from track where id = ?";
 
         try (Connection connection = dataSource.getConnection()) {
@@ -71,7 +68,7 @@ public class TrackDAO implements ITrackDAO {
                 return track;
             }
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
 
         return null;
@@ -79,7 +76,7 @@ public class TrackDAO implements ITrackDAO {
     }
 
     @Override
-    public ArrayList<Track> getTracksFromPlaylist(int id) {
+    public ArrayList<Track> getTracksFromPlaylist(int id) throws SQLException {
         String sql = "Select t.id, Performer, Title, OfflineAvailable, Duration, Album, PublicationDate, Description, " +
                 "playcount from track t join track_in_playlist i on t.id = i.Track_id where i.Playlist_id = ?";
 
@@ -107,14 +104,12 @@ public class TrackDAO implements ITrackDAO {
             return tracks;
 
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
-
-        return null;
     }
 
     @Override
-    public ArrayList<Track> getTracksNotInPlaylist(int id) {
+    public ArrayList<Track> getTracksNotInPlaylist(int id) throws SQLException {
         String sql = "Select * from track where NOT track.id IN(" +
                 "    select t.id from track t join track_in_playlist i on T.id = i.Track_id Where i.Playlist_id = ?)";
 
@@ -142,14 +137,12 @@ public class TrackDAO implements ITrackDAO {
             return tracks;
 
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
-
-        return null;
     }
 
     @Override
-    public void addTrackToPlaylist(int playlistId, int trackid) {
+    public void addTrackToPlaylist(int playlistId, int trackid) throws NoRowsAreEffectedException, SQLException {
         String sql = "INSERT INTO track_in_playlist(Track_id, Playlist_id) VALUES  (?, ?)";
         //todo fix owner system.
 
@@ -158,15 +151,17 @@ public class TrackDAO implements ITrackDAO {
             statement.setInt(1, trackid);
             statement.setInt(2, playlistId);
             int affectedRows = statement.executeUpdate();
-            //!!Important!! todo think about error handling
+            if(affectedRows <1){
+                throw new NoRowsAreEffectedException();
+            }
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
 
     }
 
     @Override
-    public void deleteTrackFromPlaylist(int playlistId, int trackID) {
+    public void deleteTrackFromPlaylist(int playlistId, int trackID) throws NoRowsAreEffectedException, SQLException {
         String sql = "DELETE FROM track_in_playlist WHERE Track_id = ? AND Playlist_id = ?";
 
         try (Connection connection = dataSource.getConnection()){
@@ -174,9 +169,11 @@ public class TrackDAO implements ITrackDAO {
             statement.setInt(1, trackID);
             statement.setInt(2, playlistId);
             int affectedRows = statement.executeUpdate();
-            //!!Important!! todo think about error handling
+            if(affectedRows <1){
+                throw new NoRowsAreEffectedException();
+            }
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
 
     }

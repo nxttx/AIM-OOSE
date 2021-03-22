@@ -9,30 +9,35 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
-import java.io.IOException;
+import java.sql.SQLException;
 
-@PreMatching             // (1)
-@Provider                // (2)
+@PreMatching
+@Provider
 public class CheckToken implements ContainerRequestFilter {
 
     private IUserDAO userDAO = new UserDAO();
 
     @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {//todo unittests
+    public void filter(ContainerRequestContext requestContext) {//todo unittests
 
         var uriInfo = requestContext.getUriInfo();
         var path = uriInfo.getPath();
         var parameters = uriInfo.getQueryParameters();
         String token = parameters.getFirst("token");
-        if (path.equals("login")) {
-        //nothing
-        } else if (userDAO.CheckTokenExists(token)) {
-        //nothing
-        } else {
+        try {
+            if (path.equals("login") || userDAO.CheckTokenExists(token)) {
+                //nothing
+            } else {
+                requestContext.abortWith(Response.status(
+                        Response.Status.UNAUTHORIZED).build());
+            }
+        } catch (SQLException throwables) {
             requestContext.abortWith(Response.status(
-                    Response.Status.UNAUTHORIZED).build());
+                    Response.Status.INTERNAL_SERVER_ERROR).build());
         }
     }
+
+
 
     @Inject
     public void setUserDAO(UserDAO LoginDOA) {

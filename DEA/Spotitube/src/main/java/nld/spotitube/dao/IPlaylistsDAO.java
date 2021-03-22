@@ -1,14 +1,17 @@
 package nld.spotitube.dao;
 
 import nld.spotitube.domain.Playlists;
+import nld.spotitube.exceptions.NoRowsAreEffectedException;
 import nld.spotitube.service.dto.PlaylistDTO;
 
+import java.sql.SQLException;
+
 public interface IPlaylistsDAO {
-    Playlists getPlaylists();
+    Playlists getPlaylists() throws SQLException;
 
-    void addPlaylist(String playlistName, String owner);
+    void addPlaylist(String playlistName, String owner) throws NoRowsAreEffectedException, SQLException;
 
-    void deletePlaylist(int id);
+    void deletePlaylist(int id) throws NoRowsAreEffectedException, SQLException;
 
-    void updatePlaylist(String playlistName, int PlatlistId);
+    void updatePlaylist(String playlistName, int PlatlistId) throws NoRowsAreEffectedException, SQLException;
 }

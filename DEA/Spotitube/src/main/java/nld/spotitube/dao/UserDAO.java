@@ -1,6 +1,7 @@
 package nld.spotitube.dao;
 
-import nld.spotitube.domain.Track;
+
+import nld.spotitube.exceptions.NoRowsAreEffectedException;
 
 import javax.annotation.Resource;
 import javax.enterprise.inject.Default;
@@ -9,7 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 @Default
 public class UserDAO implements IUserDAO {
@@ -18,7 +19,7 @@ public class UserDAO implements IUserDAO {
     DataSource dataSource;
 
     @Override
-    public boolean CheckUserExists(String user, String password) {
+    public boolean CheckUserExists(String user, String password) throws SQLException {
         String sql = "SELECT * FROM users Where Username = ?";
 
         try (Connection connection = dataSource.getConnection()) {
@@ -35,16 +36,13 @@ public class UserDAO implements IUserDAO {
             }
             return false;
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
-
-        //for safety
-        return false;
 
     }
 
     @Override
-    public void SetToken(String user, String token) {
+    public void SetToken(String user, String token) throws NoRowsAreEffectedException, SQLException {
         String sql = "UPDATE users SET Token = ? WHERE Username = ?";
 
         try (Connection connection = dataSource.getConnection()) {
@@ -52,16 +50,18 @@ public class UserDAO implements IUserDAO {
             statement.setString(1, token);
             statement.setString(2, user);
             int affectedRows = statement.executeUpdate();
-            // todo make exception
+            if(affectedRows <1){
+                throw new NoRowsAreEffectedException();
+            }
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
 
 
     }
 
     @Override
-    public boolean CheckToken(String user, String token) {
+    public boolean CheckToken(String user, String token) throws SQLException {
         String sql = "select token from user where Username = ?";
 
         try (Connection connection = dataSource.getConnection()) {
@@ -76,16 +76,13 @@ public class UserDAO implements IUserDAO {
             }
             return false;
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
-
-        //for safety
-        return false;
 
     }
 
     @Override
-    public boolean CheckTokenExists(String token) {
+    public boolean CheckTokenExists(String token) throws SQLException {
         String sql = "select token from users where token = ?";
 
         try (Connection connection = dataSource.getConnection()) {
@@ -100,11 +97,8 @@ public class UserDAO implements IUserDAO {
             }
             return false;
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw exception;
         }
-
-        //for safety
-        return false;
 
     }
 }

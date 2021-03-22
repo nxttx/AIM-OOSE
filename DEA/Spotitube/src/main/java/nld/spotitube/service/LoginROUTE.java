@@ -3,6 +3,7 @@ package nld.spotitube.service;
 import com.google.gson.JsonSyntaxException;
 import nld.spotitube.dao.IUserDAO;
 import nld.spotitube.dao.UserDAO;
+import nld.spotitube.exceptions.NoRowsAreEffectedException;
 import nld.spotitube.exceptions.UserNoNameException;
 import nld.spotitube.service.dto.DTOconverter;
 import nld.spotitube.service.dto.TokenDTO;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 
 @Path("login")
 public class LoginROUTE {
@@ -21,7 +23,7 @@ public class LoginROUTE {
     @POST
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response Login(String body) {//todo unittests
+    public Response Login(String body) throws NoRowsAreEffectedException, SQLException {//todo unittests
         //build body to object
         UserDTO userDTO;
         try {
