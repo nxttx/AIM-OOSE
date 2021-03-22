@@ -4,18 +4,19 @@ import nld.spotitube.dao.PlaylistsDAO;
 import nld.spotitube.dao.TrackDAO;
 import nld.spotitube.domain.Playlist;
 import nld.spotitube.domain.Track;
+import nld.spotitube.exceptions.PlaylistNoNameException;
 import nld.spotitube.service.PlaylistsROUTE;
 import nld.spotitube.domain.Playlists;
 import nld.spotitube.service.dto.PlaylistsDTO;
 import nld.spotitube.service.dto.TracksDTO;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
@@ -75,12 +76,21 @@ public class PlaylistsROUTETest {
         playlistsResult.setLength(0);
 
         PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
-        when(playlistsDAOMock.getPlaylists()).thenReturn(playlistsResult);
+        try {
+            when(playlistsDAOMock.getPlaylists()).thenReturn(playlistsResult);
+        } catch (Exception e) {
+
+        }
         playlists.setPlaylistsDAO(playlistsDAOMock);
 
 
         // Act
-        Response response = playlists.getPlaylists();
+        Response response = null;
+        try {
+            response = playlists.getPlaylists();
+        } catch (Exception e) {
+
+        }
         PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
 
         // Assert
@@ -120,14 +130,9 @@ public class PlaylistsROUTETest {
     public void deletePlaylists() {
         // Arrange
         int statuscodeExpected = 201;
-        final int PLAYLIST_NUMBER = 1 ;
+        final int PLAYLIST_NUMBER = 1;
 
-        // mock
-        PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
-        doNothing().when(playlistsDAOMock).deletePlaylist(PLAYLIST_NUMBER);
-        playlists.setPlaylistsDAO(playlistsDAOMock);
-
-        //Mock for getPlaylists:(For the current crossreferance. )
+        //Mock for getPlaylists
 
         int playlistAId = 0;
         int playlistBId = 1;
@@ -171,12 +176,29 @@ public class PlaylistsROUTETest {
         playlistsResult.setPlaylists(playLists);
         playlistsResult.setLength(0);
 
+
+        // mock
+        PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
+        try {
+            doNothing().when(playlistsDAOMock).deletePlaylist(PLAYLIST_NUMBER);
+        } catch (Exception e) {
+        }
+        playlists.setPlaylistsDAO(playlistsDAOMock);
+
+
         PlaylistsDAO playlistsDAOMock2 = mock(PlaylistsDAO.class);
-        when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+        try {
+            when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+        } catch (Exception e) {
+        }
         playlists.setPlaylistsDAO(playlistsDAOMock2);
 
         // Act
-        Response response = playlists.deletePlaylists("1", PLAYLIST_NUMBER);
+        Response response = null;
+        try {
+            response = playlists.deletePlaylists("1", PLAYLIST_NUMBER);
+        } catch (Exception e) {
+        }
         PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
 
         // Assert
@@ -216,12 +238,7 @@ public class PlaylistsROUTETest {
         int statuscodeExpected = 201;
         String objectJson = "{\"id\":-1,\"name\":\"test\",\"owner\":\"1\"}";
 
-        // mock
-        PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
-        doNothing().when(playlistsDAOMock).addPlaylist("","");
-        playlists.setPlaylistsDAO(playlistsDAOMock);
-
-        //Mock for getPlaylists:(For the current crossreferance. )
+        //Mock for getPlaylists:
 
         int playlistAId = 0;
         int playlistBId = 1;
@@ -265,12 +282,30 @@ public class PlaylistsROUTETest {
         playlistsResult.setPlaylists(playLists);
         playlistsResult.setLength(0);
 
+        // mock
+        PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
+        try {
+            doNothing().when(playlistsDAOMock).addPlaylist("", "");
+        } catch (Exception e) {
+        }
+        playlists.setPlaylistsDAO(playlistsDAOMock);
+
+
         PlaylistsDAO playlistsDAOMock2 = mock(PlaylistsDAO.class);
-        when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+        try {
+            when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+        } catch (Exception e) {
+
+        }
         playlists.setPlaylistsDAO(playlistsDAOMock2);
 
         // Act
-        Response response = playlists.postPlaylists("1", objectJson);
+        Response response = null;
+        try {
+            response = playlists.postPlaylists("1", objectJson);
+        } catch (Exception e) {
+
+        }
         PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
 
         // Assert
@@ -305,32 +340,32 @@ public class PlaylistsROUTETest {
     }
 
 
-
     @Test
     public void postPlaylistsAlternativeFlowWrongDataType() {
         // Arrange
-        int statuscodeExpected = 400;
+
         String objectJson = "{\"id\":\"-1a\",\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
 
-        // Act
-        Response response = playlists.postPlaylists("1", objectJson);
 
         // Assert
-        assertEquals(statuscodeExpected, response.getStatus());
+        assertThrows(
+                com.google.gson.JsonSyntaxException.class,
+                () -> playlists.postPlaylists("1", objectJson)
+        );
+
 
     }
+
     @Test
     public void postPlaylistsAlternativeFlowWrongName() {
         // Arrange
-        int statuscodeExpected = 400;
         String objectJson = "{\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
 
-        // Act
-        Response response = playlists.postPlaylists("1", objectJson);
-
         // Assert
-        assertEquals(statuscodeExpected, response.getStatus());
-
+        assertThrows(
+                PlaylistNoNameException.class,
+                () -> playlists.postPlaylists("1", objectJson)
+        );
     }
 
 
@@ -340,12 +375,7 @@ public class PlaylistsROUTETest {
         int statuscodeExpected = 200;
         String objectJson = "{\"id\":1,\"name\":\"test\",\"owner\":\"1\"}";
 
-        // mock
-        PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
-        doNothing().when(playlistsDAOMock).updatePlaylist("",1);
-        playlists.setPlaylistsDAO(playlistsDAOMock);
-
-        //Mock for getPlaylists:(For the current crossreferance. )
+        //Mock for getPlaylists:
 
         int playlistAId = 0;
         int playlistBId = 1;
@@ -389,12 +419,29 @@ public class PlaylistsROUTETest {
         playlistsResult.setPlaylists(playLists);
         playlistsResult.setLength(0);
 
+        // mock
+        PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
+        try {
+            doNothing().when(playlistsDAOMock).updatePlaylist("", 1);
+        } catch (Exception e) {
+
+        }
+        playlists.setPlaylistsDAO(playlistsDAOMock);
+
         PlaylistsDAO playlistsDAOMock2 = mock(PlaylistsDAO.class);
-        when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+        try {
+            when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+        } catch (Exception e) {
+        }
         playlists.setPlaylistsDAO(playlistsDAOMock2);
 
         // Act
-        Response response = playlists.putPlaylists("1", 1,objectJson);
+        Response response = null;
+        try {
+            response = playlists.putPlaylists("1", 1, objectJson);
+        } catch (Exception e) {
+
+        }
         PlaylistsDTO playlistsDTO = (PlaylistsDTO) response.getEntity();
 
         // Assert
@@ -431,27 +478,27 @@ public class PlaylistsROUTETest {
     @Test
     public void putPlaylistsAlternativeFlowWrongDataType() {
         // Arrange
-        int statuscodeExpected = 400;
+
         String objectJson = "{\"id\":\"-1a\",\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
 
-        // Act
-        Response response = playlists.putPlaylists("1", 1, objectJson);
-
         // Assert
-        assertEquals(statuscodeExpected, response.getStatus());
+        assertThrows(
+                com.google.gson.JsonSyntaxException.class,
+                () -> playlists.putPlaylists("1", 1, objectJson)
+        );
 
     }
+
     @Test
     public void putPlaylistsAlternativeFlowWrongName() {
         // Arrange
-        int statuscodeExpected = 400;
         String objectJson = "{\"hjgdszfk\":\"test\",\"owner\":\"1\"}";
 
-        // Act
-        Response response = playlists.putPlaylists("1",1, objectJson);
-
         // Assert
-        assertEquals(statuscodeExpected, response.getStatus());
+        assertThrows(
+                PlaylistNoNameException.class,
+                () -> playlists.putPlaylists("1", 1, objectJson)
+        );
 
     }
 
@@ -507,11 +554,20 @@ public class PlaylistsROUTETest {
 
         //mock
         TrackDAO trackDAOMock = mock(TrackDAO.class);
-        when(trackDAOMock.getTracksFromPlaylist(1)).thenReturn(tracks);
+        try {
+            when(trackDAOMock.getTracksFromPlaylist(1)).thenReturn(tracks);
+        } catch (Exception e) {
+
+        }
         playlists.setTrackDAO(trackDAOMock);
 
         // Act
-        Response response = playlists.getPlaylistTracks("1",1);
+        Response response = null;
+        try {
+            response = playlists.getPlaylistTracks("1", 1);
+        } catch (Exception e) {
+
+        }
         TracksDTO responseTracks = (TracksDTO) response.getEntity();
 
         // Assert
