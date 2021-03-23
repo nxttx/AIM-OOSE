@@ -166,6 +166,27 @@ public class PlaylistsDAO implements IPlaylistsDAO {
         }
     }
 
+    @Override
+    public String getTokenOfOwner(int playlistID)throws SQLException{
+        String sql = "SELECT Token FROM users u JOIN playlist p ON p.Eigenaar = u.id WHERE p.id = ?";
+
+        int id = playlistID;
+        //todo fix owner system.
+
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                return resultSet.getString("token");
+            }
+
+        } catch (SQLException exception) {
+            throw exception;
+        }
+        return null;
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

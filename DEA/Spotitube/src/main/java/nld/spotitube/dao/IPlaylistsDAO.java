@@ -14,4 +14,6 @@ public interface IPlaylistsDAO {
     void deletePlaylist(int id) throws NoRowsAreEffectedException, SQLException;
 
     void updatePlaylist(String playlistName, int PlatlistId) throws NoRowsAreEffectedException, SQLException;
+
+    String getTokenOfOwner(int playlistID)throws SQLException;
 }
