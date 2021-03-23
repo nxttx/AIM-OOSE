@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public interface IPlaylistsDAO {
     Playlists getPlaylists(String Token) throws SQLException;
 
-    void addPlaylist(String playlistName, String owner) throws NoRowsAreEffectedException, SQLException;
+    void addPlaylist(String playlistName, String token) throws NoRowsAreEffectedException, SQLException;
 
     void deletePlaylist(int id) throws NoRowsAreEffectedException, SQLException;
 

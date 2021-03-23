@@ -92,17 +92,16 @@ public class PlaylistsDAO implements IPlaylistsDAO {
     }
 
     @Override
-    public void addPlaylist(String playlistName, String owner) throws NoRowsAreEffectedException, SQLException {
-        String sql = "INSERT INTO Playlist (Naam, Eigenaar) Values (?,?)";
+    public void addPlaylist(String playlistName, String token) throws NoRowsAreEffectedException, SQLException {
+        String sql = "INSERT INTO Playlist (Naam, Eigenaar) Values (?,(SELECT id from users where Token = ?))";
 
         String name = playlistName;
-        boolean tempOwner = true; //playlistDTO.owner;
 
         try (Connection connection = dataSource.getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
-            statement.setBoolean(2, tempOwner);
+            statement.setString(2, token);
             int affectedRows = statement.executeUpdate();
             if (affectedRows < 1) {
                 throw new NoRowsAreEffectedException();

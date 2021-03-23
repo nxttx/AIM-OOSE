@@ -38,7 +38,7 @@ public class CheckToken implements ContainerRequestFilter {
                 }else{
                     //check if user is allowed to change that playlist
                     var firstURIParameter = pathSegments.get(0).getPath();
-                    if(firstURIParameter.equals("playlists")){
+                    if(firstURIParameter.equals("playlists") && pathSegments.size() >1 ){
                         var SecondURIParameter = pathSegments.get(1).getPath();
                         var playlistOwnerToken = playlistsDAO.getTokenOfOwner(Integer.parseInt(SecondURIParameter));
                         if(token.equals(playlistOwnerToken)){
