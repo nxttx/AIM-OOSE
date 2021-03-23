@@ -77,7 +77,7 @@ public class PlaylistsROUTETest {
 
         PlaylistsDAO playlistsDAOMock = mock(PlaylistsDAO.class);
         try {
-            when(playlistsDAOMock.getPlaylists()).thenReturn(playlistsResult);
+            when(playlistsDAOMock.getPlaylists("1")).thenReturn(playlistsResult);
         } catch (Exception e) {
 
         }
@@ -87,7 +87,7 @@ public class PlaylistsROUTETest {
         // Act
         Response response = null;
         try {
-            response = playlists.getPlaylists();
+            response = playlists.getPlaylists("1");
         } catch (Exception e) {
 
         }
@@ -188,7 +188,7 @@ public class PlaylistsROUTETest {
 
         PlaylistsDAO playlistsDAOMock2 = mock(PlaylistsDAO.class);
         try {
-            when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+            when(playlistsDAOMock2.getPlaylists("1")).thenReturn(playlistsResult);
         } catch (Exception e) {
         }
         playlists.setPlaylistsDAO(playlistsDAOMock2);
@@ -293,7 +293,7 @@ public class PlaylistsROUTETest {
 
         PlaylistsDAO playlistsDAOMock2 = mock(PlaylistsDAO.class);
         try {
-            when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+            when(playlistsDAOMock2.getPlaylists("1")).thenReturn(playlistsResult);
         } catch (Exception e) {
 
         }
@@ -430,7 +430,7 @@ public class PlaylistsROUTETest {
 
         PlaylistsDAO playlistsDAOMock2 = mock(PlaylistsDAO.class);
         try {
-            when(playlistsDAOMock2.getPlaylists()).thenReturn(playlistsResult);
+            when(playlistsDAOMock2.getPlaylists("1")).thenReturn(playlistsResult);
         } catch (Exception e) {
         }
         playlists.setPlaylistsDAO(playlistsDAOMock2);

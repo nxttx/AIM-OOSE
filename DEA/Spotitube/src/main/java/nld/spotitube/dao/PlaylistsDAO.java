@@ -21,8 +21,8 @@ public class PlaylistsDAO implements IPlaylistsDAO {
     DataSource dataSource;
 
     @Override
-    public Playlists getPlaylists() throws SQLException{
-        String sql = "select * from Playlist";
+    public Playlists getPlaylists(String token) throws SQLException{
+        String sql = "select p.id, p.naam, u.token from Playlist p join users u on p.Eigenaar = u.id";
 
         try (Connection connection = dataSource.getConnection()) {
 
@@ -60,8 +60,18 @@ public class PlaylistsDAO implements IPlaylistsDAO {
 
                         length += resultSet2.getInt("Duration");
                     }
+                    boolean owner;
+                    if(token.equals(resultSet.getString("token"))){
+                        owner = true;
+                    }else{
+                        owner = false;
+                    }
 
-                    Playlist playlist = new Playlist(resultSet.getInt("id"), resultSet.getString("Naam"), resultSet.getBoolean("Eigenaar"), trackList);
+                    Playlist playlist = new Playlist(
+                            resultSet.getInt("id"),
+                            resultSet.getString("Naam"),
+                            owner,
+                            trackList);
                     PlaylistsList.add(playlist);
                 } catch (SQLException exception) {
                     throw exception;

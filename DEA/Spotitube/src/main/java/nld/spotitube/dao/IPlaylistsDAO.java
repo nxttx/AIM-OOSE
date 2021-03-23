@@ -7,7 +7,7 @@ import nld.spotitube.service.dto.PlaylistDTO;
 import java.sql.SQLException;
 
 public interface IPlaylistsDAO {
-    Playlists getPlaylists() throws SQLException;
+    Playlists getPlaylists(String Token) throws SQLException;
 
     void addPlaylist(String playlistName, String owner) throws NoRowsAreEffectedException, SQLException;
 

@@ -1,7 +1,5 @@
 package nld.spotitube.service;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import nld.spotitube.dao.IPlaylistsDAO;
 import nld.spotitube.dao.ITrackDAO;
 import nld.spotitube.dao.PlaylistsDAO;
@@ -30,8 +28,8 @@ public class PlaylistsROUTE {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlaylists() throws SQLException {
-        Playlists playlists = PlaylistsDAO.getPlaylists();
+    public Response getPlaylists(@QueryParam("token") String token) throws SQLException {
+        Playlists playlists = PlaylistsDAO.getPlaylists(token);
         PlaylistsDTO playlistsDTO = DTOconverter.PlaylistsToPlaylistsDTO(playlists);
         return Response.status(200).entity(playlistsDTO).build();
     }
@@ -43,7 +41,7 @@ public class PlaylistsROUTE {
     public Response deletePlaylists(@QueryParam("token") String token, @PathParam("id") int id) throws NoRowsAreEffectedException, SQLException {
         PlaylistsDAO.deletePlaylist(id);
         //get new playlists
-        Playlists playlists = PlaylistsDAO.getPlaylists();
+        Playlists playlists = PlaylistsDAO.getPlaylists(token);
         PlaylistsDTO playlistsDTO = DTOconverter.PlaylistsToPlaylistsDTO(playlists);
         return Response.status(201).entity(playlistsDTO).build();
     }
@@ -60,7 +58,7 @@ public class PlaylistsROUTE {
         PlaylistsDAO.addPlaylist(newPlaylist.name, token);
 
         //get new playlists
-        Playlists playlists = PlaylistsDAO.getPlaylists();
+        Playlists playlists = PlaylistsDAO.getPlaylists(token);
         PlaylistsDTO playlistsDTO = DTOconverter.PlaylistsToPlaylistsDTO(playlists);
 
         return Response.status(201).entity(playlistsDTO).build();
@@ -81,7 +79,7 @@ public class PlaylistsROUTE {
 
 
         //get new playlists
-        Playlists playlists = PlaylistsDAO.getPlaylists();
+        Playlists playlists = PlaylistsDAO.getPlaylists(token);
         PlaylistsDTO playlistsDTO = DTOconverter.PlaylistsToPlaylistsDTO(playlists);
 
         return Response.status(200).entity(playlistsDTO).build();
