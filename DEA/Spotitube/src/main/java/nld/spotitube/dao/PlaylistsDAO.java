@@ -36,7 +36,7 @@ public class PlaylistsDAO implements IPlaylistsDAO {
             while (resultSet.next()) {
 
                 ArrayList<Track> trackList = new ArrayList<Track>();
-                String sql2 = "SELECT track.id, track.Title, track.Performer, track.OfflineAvailable, track.Duration," +
+                String sql2 = "SELECT track.id, track.Title, track.Performer, track_in_playlist.OfflineAvailable, track.Duration," +
                         " track.Album, track.PublicationDate, track.Description, track.playcount " +
                         "FROM track_in_playlist JOIN track ON `Track_id` = track.id WHERE Playlist_id = ?";
                 try (Connection connection2 = dataSource.getConnection()) {

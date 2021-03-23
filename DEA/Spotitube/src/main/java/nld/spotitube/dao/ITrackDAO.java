@@ -16,7 +16,7 @@ public interface ITrackDAO {
 
     ArrayList<Track> getTracksNotInPlaylist(int id) throws SQLException;
 
-    void addTrackToPlaylist(int playlistId, int trackid) throws NoRowsAreEffectedException, SQLException;
+    void addTrackToPlaylist(int playlistId, int trackid, boolean OfflineAvailable) throws NoRowsAreEffectedException, SQLException;
 
     void deleteTrackFromPlaylist(int playlistId, int trackID) throws NoRowsAreEffectedException, SQLException;
 }

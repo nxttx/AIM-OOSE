@@ -77,7 +77,7 @@ public class TrackDAO implements ITrackDAO {
 
     @Override
     public ArrayList<Track> getTracksFromPlaylist(int id) throws SQLException {
-        String sql = "Select t.id, Performer, Title, OfflineAvailable, Duration, Album, PublicationDate, Description, " +
+        String sql = "Select t.id, Performer, Title, i.OfflineAvailable, Duration, Album, PublicationDate, Description, " +
                 "playcount from track t join track_in_playlist i on t.id = i.Track_id where i.Playlist_id = ?";
 
         try (Connection connection = dataSource.getConnection()){
@@ -130,7 +130,7 @@ public class TrackDAO implements ITrackDAO {
                 track.setPlaycount(resultSet.getInt("playcount"));
                 track.setPublicationDate(resultSet.getString("publicationdate"));
                 track.setDescription(resultSet.getString("Description"));
-                track.setOfflineAvailable(resultSet.getBoolean("OfflineAvailable"));
+                track.setOfflineAvailable(false);
                 tracks.add(track);
             }
 
@@ -142,13 +142,14 @@ public class TrackDAO implements ITrackDAO {
     }
 
     @Override
-    public void addTrackToPlaylist(int playlistId, int trackid) throws NoRowsAreEffectedException, SQLException {
-        String sql = "INSERT INTO track_in_playlist(Track_id, Playlist_id) VALUES  (?, ?)";
+    public void addTrackToPlaylist(int playlistId, int trackid,boolean OfflineAvailable) throws NoRowsAreEffectedException, SQLException {
+        String sql = "INSERT INTO track_in_playlist(Track_id, Playlist_id, OfflineAvailable) VALUES  (?, ?,?)";
 
         try (Connection connection = dataSource.getConnection()){
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, trackid);
             statement.setInt(2, playlistId);
+            statement.setBoolean(3, OfflineAvailable);
             int affectedRows = statement.executeUpdate();
             if(affectedRows <1){
                 throw new NoRowsAreEffectedException();

@@ -118,7 +118,7 @@ public class PlaylistsROUTE {
             newTrack = DTOconverter.JSONToTrackDTO(body);
 
         //edit that playlist
-        TrackDAO.addTrackToPlaylist(playlistId, newTrack.id);
+        TrackDAO.addTrackToPlaylist(playlistId, newTrack.id, newTrack.offlineAvailable);
 
         ArrayList<Track> tracks = TrackDAO.getTracksFromPlaylist(playlistId);
         TracksDTO tracksDTO = DTOconverter.trackListToTracksDTO(tracks);
