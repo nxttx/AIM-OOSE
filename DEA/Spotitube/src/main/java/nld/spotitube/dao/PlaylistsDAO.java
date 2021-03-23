@@ -96,7 +96,6 @@ public class PlaylistsDAO implements IPlaylistsDAO {
         String sql = "INSERT INTO Playlist (Naam, Eigenaar) Values (?,?)";
 
         String name = playlistName;
-        //todo fix owner system.
         boolean tempOwner = true; //playlistDTO.owner;
 
         try (Connection connection = dataSource.getConnection()) {
@@ -151,7 +150,6 @@ public class PlaylistsDAO implements IPlaylistsDAO {
 
         String name = playlistName;
         int id = PlatlistId;
-        //todo fix owner system.
 
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -171,7 +169,6 @@ public class PlaylistsDAO implements IPlaylistsDAO {
         String sql = "SELECT Token FROM users u JOIN playlist p ON p.Eigenaar = u.id WHERE p.id = ?";
 
         int id = playlistID;
-        //todo fix owner system.
 
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);

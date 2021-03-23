@@ -144,7 +144,6 @@ public class TrackDAO implements ITrackDAO {
     @Override
     public void addTrackToPlaylist(int playlistId, int trackid) throws NoRowsAreEffectedException, SQLException {
         String sql = "INSERT INTO track_in_playlist(Track_id, Playlist_id) VALUES  (?, ?)";
-        //todo fix owner system.
 
         try (Connection connection = dataSource.getConnection()){
             PreparedStatement statement = connection.prepareStatement(sql);

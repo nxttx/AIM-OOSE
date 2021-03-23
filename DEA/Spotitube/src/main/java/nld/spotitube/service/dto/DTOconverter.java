@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class DTOconverter {
     private static final Gson JSON = new Gson();
 
-    public static UserDTO JSONToUserDTO(String JSONObject) throws UserNoNameException, JsonSyntaxException{//todo unittests
+    public static UserDTO JSONToUserDTO(String JSONObject) throws UserNoNameException, JsonSyntaxException{
         UserDTO userDTO;
         userDTO = JSON.fromJson(JSONObject, UserDTO.class);
         if (userDTO.user == null) {
@@ -22,7 +22,7 @@ public class DTOconverter {
         return userDTO;
     }
 
-    public static TrackDTO JSONToTrackDTO(String JSONObject) throws TrackNoTitleException, JsonSyntaxException{ //todo unittests
+    public static TrackDTO JSONToTrackDTO(String JSONObject) throws TrackNoTitleException, JsonSyntaxException{
         TrackDTO newTrack;
             newTrack = JSON.fromJson(JSONObject, TrackDTO.class);
             if (newTrack.title == null) {

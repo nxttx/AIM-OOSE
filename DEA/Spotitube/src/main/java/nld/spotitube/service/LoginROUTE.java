@@ -23,7 +23,7 @@ public class LoginROUTE {
     @POST
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response Login(String body) throws NoRowsAreEffectedException, SQLException {//todo unittests
+    public Response Login(String body) throws NoRowsAreEffectedException, SQLException {
         //build body to object
         UserDTO userDTO;
         try {
