@@ -133,4 +133,4 @@ Na een gesprek met Michel heeft hij mij geholpen dat ik de connection moet mocke
 aanmaken en deze bij de get connection mocken. <br>
 
 Ook hoeven mijn tests niet te draaien in docker. Hiervoor kan ik een maven dependency gebruiken die automatisch mijn
-container start.<br>
+container start. https://github.com/fabric8io/docker-maven-plugin <br>
