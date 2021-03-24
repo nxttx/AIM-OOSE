@@ -26,6 +26,9 @@ Ik heb voor het onderzoek de volgende MoSCoW prioritering besloten:
 - https://www.docker.com/101-tutorial --gebruikt --
 - https://www.testcontainers.org/quickstart/junit_5_quickstart/
   -- https://www.youtube.com/watch?v=gAkwW2tuIqE&ab_channel=Fireship -- gebruikt--
+  -- https://github.com/vishnubob/wait-for-it -- gebruikt--
+  --https://docs.docker.com/compose/startup-order/ -- gebruikt--
+
 
 ## docker commands:
 
@@ -111,3 +114,9 @@ Met het commando `docker-compose up` kan je nu je alle containers tegerlijkertij
 en met het commando `docker-compose down` sluit je direct weer alle containers af.
 
 
+## Testing
+Om maven met Docker te gebruiken heb ik een bestaande image gebruikt. Jammer genoeg is er geen image voor de JDK 12. dus heb ik in mijn POM mijn JDK veranderd naar 11.<br>
+
+Het eerste waar ik tegen aan liep was dat maven eerder klaar was dan de db. Daarvoor heb ik wait-for-it.sh gebruikt. Dit moest ik nog wel een beetje tweaken. Omdat de standaard tijd van 15 seconde niet genoeg was voor de db om op te starten.<br>
+
+Daarna liep ik tegen het probleem vand de datasource aan. De datasource was iets dat altijd door tomee geinject werdt. Echter kan dit nu niet gebeuren. Omdat DataSource zelf een interface is moest ik op zoek gaan naar een andere manier om een data source te maken. Ik zit nu te denken aan een maven dependency. <br>
