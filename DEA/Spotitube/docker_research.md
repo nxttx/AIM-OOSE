@@ -26,9 +26,8 @@ Ik heb voor het onderzoek de volgende MoSCoW prioritering besloten:
 - https://www.docker.com/101-tutorial --gebruikt --
 - https://www.testcontainers.org/quickstart/junit_5_quickstart/
   -- https://www.youtube.com/watch?v=gAkwW2tuIqE&ab_channel=Fireship -- gebruikt--
-  -- https://github.com/vishnubob/wait-for-it -- gebruikt--
-  --https://docs.docker.com/compose/startup-order/ -- gebruikt--
-
+  -- https://github.com/vishnubob/wait-for-it -- gebruikt-- --https://docs.docker.com/compose/startup-order/ --
+  gebruikt--
 
 ## docker commands:
 
@@ -84,14 +83,18 @@ Met docker is het de bedoeling dat je maar 1 service draait per container. Daaro
 container staan van je webserver. Hiervoor kan je gemakkelijk Docker compose gebruiken. Met docker comopse kan je
 defineren welke docker files op welke manier moeten worden uit gevoerd.<br>
 
-Je maakt een docker compose in een ```docker-compose.yml```. Hierin zet je: 
+Je maakt een docker compose in een ```docker-compose.yml```. Hierin zet je:
+
 - versie
 - services
-- volumes 
+- volumes
 
-In elke service kan je een appart component zetten. In het onderstaande voorbeeld bijvoorbeeld 'web' en 'db'. in deze componenten kan je de build locatie aangeven of de image die je wilt gebruiken, environment variables, poorten waarop ze moeten zijn geforward of gedeelde volumes.<br>
+In elke service kan je een appart component zetten. In het onderstaande voorbeeld bijvoorbeeld 'web' en 'db'. in deze
+componenten kan je de build locatie aangeven of de image die je wilt gebruiken, environment variables, poorten waarop ze
+moeten zijn geforward of gedeelde volumes.<br>
 
 docker-compose.yml
+
 ```yml
 version: '3'
 services:
@@ -110,13 +113,24 @@ volumes:
   db-data:
 ```
 
-Met het commando `docker-compose up` kan je nu je alle containers tegerlijkertijd openen.
-en met het commando `docker-compose down` sluit je direct weer alle containers af.
+Met het commando `docker-compose up` kan je nu je alle containers tegerlijkertijd openen. en met het
+commando `docker-compose down` sluit je direct weer alle containers af.
 
+## bevindingen
 
-## Testing
-Om maven met Docker te gebruiken heb ik een bestaande image gebruikt. Jammer genoeg is er geen image voor de JDK 12. dus heb ik in mijn POM mijn JDK veranderd naar 11.<br>
+Om maven met Docker te gebruiken heb ik een bestaande image gebruikt. Jammer genoeg is er geen image voor de JDK 12. dus
+heb ik in mijn POM mijn JDK veranderd naar 11. // outdated<br>
 
-Het eerste waar ik tegen aan liep was dat maven eerder klaar was dan de db. Daarvoor heb ik wait-for-it.sh gebruikt. Dit moest ik nog wel een beetje tweaken. Omdat de standaard tijd van 15 seconde niet genoeg was voor de db om op te starten.<br>
+Het eerste waar ik tegen aan liep was dat maven eerder klaar was dan de db. Daarvoor heb ik wait-for-it.sh gebruikt. Dit
+moest ik nog wel een beetje tweaken. Omdat de standaard tijd van 15 seconde niet genoeg was voor de db om op te
+starten.<br>
 
-Daarna liep ik tegen het probleem vand de datasource aan. De datasource was iets dat altijd door tomee geinject werdt. Echter kan dit nu niet gebeuren. Omdat DataSource zelf een interface is moest ik op zoek gaan naar een andere manier om een data source te maken. Ik zit nu te denken aan een maven dependency. <br>
+Daarna liep ik tegen het probleem van de datasource aan. De datasource was iets dat altijd door tomee geinject werdt.
+Echter kan dit nu niet gebeuren. Omdat DataSource zelf een interface is moest ik op zoek gaan naar een andere manier om
+een data source te maken. Ik zit nu te denken aan een maven dependency. <br>
+
+Na een gesprek met Michel heeft hij mij geholpen dat ik de connection moet mocken. Of te wel een nieuwe connection
+aanmaken en deze bij de get connection mocken. <br>
+
+Ook hoeven mijn tests niet te draaien in docker. Hiervoor kan ik een maven dependency gebruiken die automatisch mijn
+container start.<br>
