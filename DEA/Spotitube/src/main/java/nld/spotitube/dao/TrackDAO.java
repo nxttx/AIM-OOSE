@@ -35,7 +35,7 @@ public class TrackDAO implements ITrackDAO {
                 track.setPlaycount(resultSet.getInt("playcount"));
                 track.setPublicationDate(resultSet.getString("publicationdate"));
                 track.setDescription(resultSet.getString("Description"));
-                track.setOfflineAvailable(resultSet.getBoolean("OfflineAvailable"));
+                track.setOfflineAvailable(false);
                 tracks.add(track);
             }
             return tracks;
@@ -64,7 +64,7 @@ public class TrackDAO implements ITrackDAO {
                 track.setPlaycount(resultSet.getInt("playcount"));
                 track.setPublicationDate(resultSet.getString("publicationdate"));
                 track.setDescription(resultSet.getString("Description"));
-                track.setOfflineAvailable(resultSet.getBoolean("OfflineAvailable"));
+                track.setOfflineAvailable(false);
                 return track;
             }
         } catch (SQLException exception) {

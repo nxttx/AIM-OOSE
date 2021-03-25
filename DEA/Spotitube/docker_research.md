@@ -134,3 +134,6 @@ aanmaken en deze bij de get connection mocken. <br>
 
 Ook hoeven mijn tests niet te draaien in docker. Hiervoor kan ik een maven dependency gebruiken die automatisch mijn
 container start. https://github.com/fabric8io/docker-maven-plugin <br>
+
+Om een database connectie te kunnen maken in je tests heb ik deze video gebruikt: https://www.youtube.com/watch?v=2i4t-SL1VsU&ab_channel=luv2code , uit enidelijk heb ik dit gebruit voor maven https://mvnrepository.com/artifact/mysql/mysql-connector-java/8.0.23 <br>
+
