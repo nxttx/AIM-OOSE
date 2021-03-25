@@ -22,7 +22,7 @@ public class PlaylistsDAO implements IPlaylistsDAO {
 
     @Override
     public Playlists getPlaylists(String token) throws SQLException{
-        String sql = "select p.id, p.naam, u.token from Playlist p join users u on p.Eigenaar = u.id";
+        String sql = "select p.id, p.naam, u.token from playlist p join users u on p.Eigenaar = u.id";
 
         try (Connection connection = dataSource.getConnection()) {
 
@@ -93,7 +93,7 @@ public class PlaylistsDAO implements IPlaylistsDAO {
 
     @Override
     public void addPlaylist(String playlistName, String token) throws NoRowsAreEffectedException, SQLException {
-        String sql = "INSERT INTO Playlist (Naam, Eigenaar) Values (?,(SELECT id from users where Token = ?))";
+        String sql = "INSERT INTO playlist (Naam, Eigenaar) Values (?,(SELECT id from users where Token = ?))";
 
         String name = playlistName;
 
@@ -114,30 +114,29 @@ public class PlaylistsDAO implements IPlaylistsDAO {
 
     @Override
     public void deletePlaylist(int id) throws NoRowsAreEffectedException, SQLException {
-        String sql = "DELETE FROM Playlist WHERE Playlist.id = ?";
+        String sql = "DELETE FROM playlist WHERE playlist.id = ?";
         try (Connection connection = dataSource.getConnection()) {
-
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
 
-
             int affectedRows = statement.executeUpdate();
-            if (affectedRows == 0) {
-                String sql2 = "DELETE FROM Playlist WHERE Playlist.id = ?";
-                try (Connection connection2 = dataSource.getConnection()) {
-
-                    PreparedStatement statement2 = connection2.prepareStatement(sql2);
-                    statement2.setInt(1, id);
-
-
-                    int affectedRows2 = statement2.executeUpdate();
-                    if (affectedRows2 == 0) {
-                        throw new NoRowsAreEffectedException();
-                    }
-                } catch (SQLException exception) {
-                    throw exception;
-                }
-            }
+            //todo not sure wheter i can delete this, But I think it can be deleted because of a cascade change in the database.
+//            if (affectedRows == 0) {
+//                String sql2 = "DELETE FROM playlist WHERE playlist.id = ?";
+//                try (Connection connection2 = dataSource.getConnection()) {
+//
+//                    PreparedStatement statement2 = connection2.prepareStatement(sql2);
+//                    statement2.setInt(1, id);
+//
+//
+//                    int affectedRows2 = statement2.executeUpdate();
+//                    if (affectedRows2 == 0) {
+//                        throw new NoRowsAreEffectedException();
+//                    }
+//                } catch (SQLException exception) {
+//                    throw exception;
+//                }
+//            }
         } catch (SQLException exception) {
             throw exception;
         }
@@ -145,8 +144,7 @@ public class PlaylistsDAO implements IPlaylistsDAO {
 
     @Override
     public void updatePlaylist(String playlistName, int PlatlistId) throws NoRowsAreEffectedException, SQLException {
-        String sql = "UPDATE Playlist SET Naam = ? WHERE id = ?";
-
+        String sql = "UPDATE playlist SET Naam = ? WHERE id = ?";
         String name = playlistName;
         int id = PlatlistId;
 
@@ -166,7 +164,6 @@ public class PlaylistsDAO implements IPlaylistsDAO {
     @Override
     public String getTokenOfOwner(int playlistID)throws SQLException{
         String sql = "SELECT Token FROM users u JOIN playlist p ON p.Eigenaar = u.id WHERE p.id = ?";
-
         int id = playlistID;
 
         try (Connection connection = dataSource.getConnection()) {

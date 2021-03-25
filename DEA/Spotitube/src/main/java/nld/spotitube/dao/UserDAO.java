@@ -32,7 +32,6 @@ public class UserDAO implements IUserDAO {
                 if (DBPassword.equals(password)) {
                     return true;
                 }
-
             }
             return false;
         } catch (SQLException exception) {
@@ -53,28 +52,6 @@ public class UserDAO implements IUserDAO {
             if(affectedRows <1){
                 throw new NoRowsAreEffectedException();
             }
-        } catch (SQLException exception) {
-            throw exception;
-        }
-
-
-    }
-
-    @Override
-    public boolean CheckToken(String user, String token) throws SQLException {
-        String sql = "select token from user where Username = ?";
-
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, user);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                if (resultSet.getString("token").equals(token)) {
-                    return true;
-                }
-            }
-            return false;
         } catch (SQLException exception) {
             throw exception;
         }
@@ -100,5 +77,9 @@ public class UserDAO implements IUserDAO {
             throw exception;
         }
 
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

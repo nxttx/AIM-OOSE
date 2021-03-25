@@ -10,8 +10,6 @@ public interface IUserDAO {
 
     public void SetToken(String user, String token) throws NoRowsAreEffectedException, SQLException;
 
-    public boolean CheckToken(String user, String token) throws SQLException;
-
     public boolean CheckTokenExists(String token) throws SQLException;
 
 }

@@ -63,10 +63,10 @@ public class TestConnection {
                 ") ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;\n");
 
         sqlList.add("INSERT INTO `playlist` (`id`, `Naam`, `Eigenaar`) VALUES\n" +
-                "("+DatabaseObjects.playlist1.getId()+", '"+DatabaseObjects.playlist1.getName()+"', "+DatabaseObjects.playlist1.getOwner()+"1),\n" +
-                "("+DatabaseObjects.playlist2.getId()+", '"+DatabaseObjects.playlist2.getName()+"', "+DatabaseObjects.playlist2.getOwner()+"1),\n" +
-                "("+DatabaseObjects.playlist3.getId()+", '"+DatabaseObjects.playlist3.getName()+"', "+DatabaseObjects.playlist3.getOwner()+"1),\n" +
-                "("+DatabaseObjects.playlist4.getId()+", '"+DatabaseObjects.playlist3.getName()+"', "+DatabaseObjects.playlist4.getOwner()+"2);\n");
+                "("+DatabaseObjects.playlist1.getId()+", '"+DatabaseObjects.playlist1.getName()+"', "+DatabaseObjects.user1.getId()+"),\n" +
+                "("+DatabaseObjects.playlist2.getId()+", '"+DatabaseObjects.playlist2.getName()+"', "+DatabaseObjects.user1.getId()+"),\n" +
+                "("+DatabaseObjects.playlist3.getId()+", '"+DatabaseObjects.playlist3.getName()+"', "+DatabaseObjects.user1.getId()+"),\n" +
+                "("+DatabaseObjects.playlist4.getId()+", '"+DatabaseObjects.playlist4.getName()+"', "+DatabaseObjects.user2.getId()+");\n");
 
         sqlList.add(
                 "DROP TABLE IF EXISTS `track`;\n" );

@@ -27,7 +27,6 @@ public class CheckToken implements ContainerRequestFilter {
         var pathSegments = uriInfo.getPathSegments();
         var parameters = uriInfo.getQueryParameters();
         String token = parameters.getFirst("token");
-
         try {
             if (path.equals("login")) {
                 //nothing
@@ -39,29 +38,23 @@ public class CheckToken implements ContainerRequestFilter {
                     //check if user is allowed to change that playlist
                     var firstURIParameter = pathSegments.get(0).getPath();
                     if(firstURIParameter.equals("playlists") && pathSegments.size() >1 ){
-                        var SecondURIParameter = pathSegments.get(1).getPath();
-                        var playlistOwnerToken = playlistsDAO.getTokenOfOwner(Integer.parseInt(SecondURIParameter));
+                        var playlistOwnerToken = playlistsDAO.getTokenOfOwner(Integer.parseInt(pathSegments.get(1).getPath()));
                         if(token.equals(playlistOwnerToken)){
                             //nothing
                         }else{
-                            requestContext.abortWith(Response.status(
-                                    Response.Status.UNAUTHORIZED).build());
+                            requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
                         }
                     }else{
                         //nothing
                     }
                 }
             }else {
-                requestContext.abortWith(Response.status(
-                        Response.Status.UNAUTHORIZED).build());
+                requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
             }
         } catch (SQLException throwables) {
-            requestContext.abortWith(Response.status(
-                    Response.Status.INTERNAL_SERVER_ERROR).build());
+            requestContext.abortWith(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
         }
     }
-
-
 
     @Inject
     public void setUserDAO(UserDAO LoginDOA) {

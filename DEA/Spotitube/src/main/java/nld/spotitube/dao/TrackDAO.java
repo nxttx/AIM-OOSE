@@ -70,9 +70,7 @@ public class TrackDAO implements ITrackDAO {
         } catch (SQLException exception) {
             throw exception;
         }
-
         return null;
-
     }
 
     @Override
@@ -81,7 +79,6 @@ public class TrackDAO implements ITrackDAO {
                 "playcount from track t join track_in_playlist i on t.id = i.Track_id where i.Playlist_id = ?";
 
         try (Connection connection = dataSource.getConnection()){
-
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -100,9 +97,7 @@ public class TrackDAO implements ITrackDAO {
                 track.setOfflineAvailable(resultSet.getBoolean("OfflineAvailable"));
                 tracks.add(track);
             }
-
             return tracks;
-
         } catch (SQLException exception) {
             throw exception;
         }
@@ -111,10 +106,9 @@ public class TrackDAO implements ITrackDAO {
     @Override
     public ArrayList<Track> getTracksNotInPlaylist(int id) throws SQLException {
         String sql = "Select * from track where NOT track.id IN(" +
-                "    select t.id from track t join track_in_playlist i on T.id = i.Track_id Where i.Playlist_id = ?)";
+                "    select t.id from track t join track_in_playlist i on t.id = i.Track_id Where i.Playlist_id = ?)";
 
         try (Connection connection = dataSource.getConnection()){
-
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();

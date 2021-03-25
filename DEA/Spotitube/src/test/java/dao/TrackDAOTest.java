@@ -2,15 +2,18 @@ package dao;
 
 import nld.spotitube.dao.TrackDAO;
 import nld.spotitube.domain.Track;
+import nld.spotitube.exceptions.NoRowsAreEffectedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -20,17 +23,14 @@ public class TrackDAOTest {
     private Connection databaseConnection;
     TrackDAO trackDAO = new TrackDAO();
 
-    @BeforeEach // beforeALL didnt work. Would be a big optimalization!
-    public void beforeAll(){
+    @BeforeEach
+    public void beforeEach(){
         try {
             databaseConnection = connectionBuilder.getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            fail();
         }
-    }
-
-    @BeforeEach
-    public void beforeEach(){
         connectionBuilder.restoreDatabase();
     }
 
@@ -163,4 +163,135 @@ public class TrackDAOTest {
 
     }
 
+    @Test
+    public void getTracksNotInPlaylist(){
+        // Arrange
+        int playlistID = 10;
+
+        //mock
+        DataSource connectionMock = mock(DataSource.class);
+        try {
+            when(connectionMock.getConnection()).thenReturn(databaseConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        trackDAO.setDataSource(connectionMock);
+
+        // Act
+        ArrayList<Track> responseTracks= null;
+        try {
+            responseTracks = trackDAO.getTracksNotInPlaylist(playlistID);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        // Assert
+        assertEquals(DatabaseObjects.track2.getId(), responseTracks.get(0).getId());
+        assertEquals(DatabaseObjects.track2.getDescription(), responseTracks.get(0).getDescription());
+        assertEquals(DatabaseObjects.track2.getDuration(), responseTracks.get(0).getDuration());
+        assertEquals(DatabaseObjects.track2.getPlaycount(), responseTracks.get(0).getPlaycount());
+        assertEquals(false, responseTracks.get(0).getOfflineAvailable());
+        assertEquals(DatabaseObjects.track2.getPerformer(), responseTracks.get(0).getPerformer());
+        assertEquals(DatabaseObjects.track2.getPublicationDate(), responseTracks.get(0).getPublicationDate());
+        assertEquals(DatabaseObjects.track2.getTitle(), responseTracks.get(0).getTitle());
+
+    }
+
+    @Test
+    public void addTracksToPlaylist(){
+        // Arrange
+        int playlistID = 10;
+        int trackID = 2;
+
+        //mock
+        DataSource connectionMock = mock(DataSource.class);
+        try {
+            when(connectionMock.getConnection()).thenReturn(databaseConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        trackDAO.setDataSource(connectionMock);
+
+        // Act
+        try {
+            trackDAO.addTrackToPlaylist(playlistID, trackID, true);
+        } catch (SQLException | NoRowsAreEffectedException throwables) {
+            throwables.printStackTrace();
+        }
+
+        //check if it worked:
+        String sql= "SELECT * FROM track_in_playlist where Playlist_id = "+playlistID+" AND Track_id = "+trackID;
+        try (Connection connection = connectionBuilder.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            int amount =1;
+            //Assert
+            while(resultSet.next()){
+                assertTrue(amount< 2);
+                amount++;
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    @Test
+    public void addTracksToPlaylistErrorTest(){
+        // Arrange
+        int playlistID = 10;
+        int trackID = 3;
+
+        //mock
+        DataSource connectionMock = mock(DataSource.class);
+        try {
+            when(connectionMock.getConnection()).thenReturn(databaseConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        trackDAO.setDataSource(connectionMock);
+
+        // Act
+        //Assert
+        assertThrows(
+                SQLException.class,
+                () -> trackDAO.addTrackToPlaylist(playlistID, trackID, true)
+        );
+
+
+    }
+
+
+    @Test
+    public void deleteTrackFromPlaylist(){
+        // Arrange
+        int playlistID = 10;
+        int trackID = 1;
+
+        //mock
+        DataSource connectionMock = mock(DataSource.class);
+        try {
+            when(connectionMock.getConnection()).thenReturn(databaseConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        trackDAO.setDataSource(connectionMock);
+
+        // Act
+        try {
+            trackDAO.deleteTrackFromPlaylist(playlistID, trackID);
+        } catch (SQLException | NoRowsAreEffectedException throwables) {
+            throwables.printStackTrace();
+        }
+
+        //check if it worked:
+        String sql= "SELECT * FROM track_in_playlist where Playlist_id = "+playlistID+" AND Track_id = "+trackID;
+        try (Connection connection = connectionBuilder.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            //Assert
+            while(resultSet.next()){
+                fail();
+            }
+        } catch (Exception e) {
+        }
+    }
 }
