@@ -23,7 +23,7 @@ audio- en videostreams
 * **R. Boudewijn** - [nxttx](https://github.com/nxttx)
 
 ## Software guidebook
-[Click Here](/opleverdocument/readme.md)
+[Click Here](/opleverdocument/opleverdocument.pdf)
 
 ## API
 
@@ -50,34 +50,34 @@ The client will expect the following respond codes to be used
 
 ### Endpoints
 The following endpoints are expected
-
-#### Login
-
-```
-url:    /login 
-method: POST
-```
-
-It will perform a request with an object in the body of the form
-
-```
-{
-  "user":     "meron", 
-  "password": "MySuperSecretPassword12341"
-}
-```
-
-It will expect a response containing an object of the form
-
-```
-{
-  "token":  "1234-1234-1234", 
-  "user":   "Meron Brouwer"
-}
-```
-
-This token is then stored in LocalStorage and used for each following
-request.
+>
+>#### Login
+>
+>```
+>url:    /login 
+>method: POST
+>```
+>
+>It will perform a request with an object in the body of the form
+>
+>```
+>{
+>  "user":     "meron", 
+>  "password": "MySuperSecretPassword12341"
+>}
+>```
+>
+>It will expect a response containing an object of the form
+>
+>```
+>{
+>  "token":  "1234-1234-1234", 
+>  "user":   "Meron Brouwer"
+>}
+>```
+>
+>This token is then stored in LocalStorage and used for each following
+>request.
 
 #### Playlists
 
