@@ -23,7 +23,7 @@ audio- en videostreams
 * **R. Boudewijn** - [nxttx](https://github.com/nxttx)
 
 ## Software guidebook
-[Click Here](/documentation/readme.md)
+[Click Here](/opleverdocument/readme.md)
 
 ## API
 

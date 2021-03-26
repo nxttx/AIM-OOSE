@@ -120,23 +120,7 @@ public class PlaylistsDAO implements IPlaylistsDAO {
             statement.setInt(1, id);
 
             int affectedRows = statement.executeUpdate();
-            //todo not sure wheter i can delete this, But I think it can be deleted because of a cascade change in the database.
-//            if (affectedRows == 0) {
-//                String sql2 = "DELETE FROM playlist WHERE playlist.id = ?";
-//                try (Connection connection2 = dataSource.getConnection()) {
-//
-//                    PreparedStatement statement2 = connection2.prepareStatement(sql2);
-//                    statement2.setInt(1, id);
-//
-//
-//                    int affectedRows2 = statement2.executeUpdate();
-//                    if (affectedRows2 == 0) {
-//                        throw new NoRowsAreEffectedException();
-//                    }
-//                } catch (SQLException exception) {
-//                    throw exception;
-//                }
-//            }
+
         } catch (SQLException exception) {
             throw exception;
         }
