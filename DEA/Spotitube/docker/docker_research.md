@@ -24,10 +24,9 @@ Ik heb voor het onderzoek de volgende MoSCoW prioritering besloten:
 ## Handige pagina's:
 
 - https://www.docker.com/101-tutorial --gebruikt --
-- https://www.testcontainers.org/quickstart/junit_5_quickstart/
-  -- https://www.youtube.com/watch?v=gAkwW2tuIqE&ab_channel=Fireship -- gebruikt--
-  -- https://github.com/vishnubob/wait-for-it -- gebruikt-- --https://docs.docker.com/compose/startup-order/ --
-  gebruikt--
+- https://www.youtube.com/watch?v=gAkwW2tuIqE&ab_channel=Fireship -- gebruikt--
+- https://github.com/vishnubob/wait-for-it -- gebruikt-- 
+- https://docs.docker.com/compose/startup-order/ -- gebruikt--
 
 ## docker commands:
 
