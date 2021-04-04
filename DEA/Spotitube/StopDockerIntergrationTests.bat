@@ -1,0 +1,3 @@
+@echo off
+docker kill spotitube_intergrationtestdb
+docker container rm spotitube_intergrationtestdb

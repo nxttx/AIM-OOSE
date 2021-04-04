@@ -74,7 +74,7 @@ public class TrackDAOTest {
         assertEquals(DatabaseObjects.track2.getPerformer(), responseTracks.get(1).getPerformer());
         assertEquals(DatabaseObjects.track2.getPublicationDate(), responseTracks.get(1).getPublicationDate());
         assertEquals(DatabaseObjects.track2.getTitle(), responseTracks.get(1).getTitle());
-        
+
         assertEquals(DatabaseObjects.track3.getId(), responseTracks.get(2).getId());
         assertEquals(DatabaseObjects.track3.getDescription(), responseTracks.get(2).getDescription());
         assertEquals(DatabaseObjects.track3.getDuration(), responseTracks.get(2).getDuration());
