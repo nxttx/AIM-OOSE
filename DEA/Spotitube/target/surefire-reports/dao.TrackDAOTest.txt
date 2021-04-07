@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: dao.TrackDAOTest
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.052 s - in dao.TrackDAOTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.377 s - in dao.TrackDAOTest
