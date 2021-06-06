@@ -5,10 +5,7 @@ import src.main.java.oose.ooad.quebble.adapter.IBetaalServiceAdapter;
 import src.main.java.oose.ooad.quebble.adapter.OnlineBetaalServiceAdapter;
 import src.main.java.oose.ooad.quebble.adapter.RandomWoordenboekAdapter;
 import src.main.java.oose.ooad.quebble.strategy.IScoreStrategy;
-import src.main.java.oose.ooad.quebble.strategy.ScoreStandardCalculate;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Player {
